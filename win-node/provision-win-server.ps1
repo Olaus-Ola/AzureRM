@@ -22,7 +22,7 @@ For ($i=1; $i -lt 2; $i++) {
        VmSize = "Standard_D1_v2";
        };
 
-    . .\..\base\build-win-client.ps1 @VitualMachine;
+    . .\..\base\build-win-server.ps1 @VitualMachine;
 
 }
 

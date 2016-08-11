@@ -63,8 +63,8 @@ $osDiskUri = $storageAccount.PrimaryEndpoints.Blob.ToString() + "vhds/" + $diskN
 
 
 # VM
-$publisher = "#MicrosoftWindowsServer"
-$offer = "#WindowsServer"
+$publisher = "MicrosoftWindowsServer"
+$offer = "WindowsServer"
 $sku = "2012-R2-Datacenter"
 $version = "4.0.20160617"
 
