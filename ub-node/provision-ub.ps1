@@ -18,8 +18,8 @@ For ($i=0; $i -lt 1; $i++) {
        StorageAccountName = $StorageAccountName;
        VnetName = $VnetName;  
        SubnetIndex = $SubNetIndex;
-       VmName = "ub-client-$i";
-       NicName = "ub-client-nic-$i"
+       VmName = "ub-ansible-client-$i";
+       NicName = "ub-ansible-client-nic-$i"
        VmSize = "Standard_D1_v2"
        };
 

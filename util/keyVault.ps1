@@ -1,7 +1,5 @@
 Login-AzureRmAccount
 
-#https://github.com/Azure/azure-content/blob/master/articles/key-vault/key-vault-get-started.md
-
 $ResourceGroupName = 'AzureRM'
 $Location = 'East US 2'
 
