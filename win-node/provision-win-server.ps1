@@ -9,6 +9,7 @@ $SubNetIndex = 2
 $StorageAccountName = "azurestoragez1"
 
 
+# Build Base Image 
 $i = 1
 For ($i=1; $i -lt 2; $i++) {
   $VitualMachine = @{
@@ -26,4 +27,15 @@ For ($i=1; $i -lt 2; $i++) {
 
 }
 
+
+#Apply DSC Configuration
+$i = 1
+For ($i=1; $i -lt 2; $i++) {
+
+ Set-AzureRmVMDSCExtension -ResourceGroupName $resourceGroup -VMName  win-server-$i -Version '2.15' `
+                              -ArchiveBlobName "win-web-server-dsc.ps1.zip" `
+                              -ArchiveStorageAccountName $storageAccountName `
+                              -ConfigurationName "WebApp"
+
+}
 
