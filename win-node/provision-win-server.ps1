@@ -28,6 +28,13 @@ For ($i=1; $i -lt 2; $i++) {
 }
 
 
+#Publish DSC Image 
+  
+  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-dotnet-core-rc2.ps1 `
+                                     -ResourceGroupName $resourceGroup -StorageAccountName $storageAccountName -Force
+
+
+
 #Apply DSC Configuration
 $i = 1
 For ($i=1; $i -lt 2; $i++) {
