@@ -13,11 +13,16 @@ $Offer = (Get-AzureRmVMImageOffer -Location $Location -PublisherName $Publisher)
 $Sku = (Get-AzureRmVMImageSku -Location $Location -PublisherName $Publisher -Offer $Offer) | select -ExpandProperty Skus | where { $_ -like '*2012-R2-Datacenter*' } 
 $Versions = (Get-AzureRmVMImage -Location $Location -Offer $Offer -PublisherName $Publisher -Skus $Sku) | select -ExpandProperty Version
 
-
 write-output("Publisher: " + $Publisher) ##MicrosoftWindowsServer
 write-output("Offer:" + $Offer) ##WindowsServer
 write-output("Sku:" + $Sku ) ##2012-R2-Datacenter
 write-output("Current Versions:" + $Versions) #4.0.20160617
+
+#Windows Nano Server 
+$Publisher = "MicrosoftWindowsServer"
+$Offer = "WindowsServer"
+$Sku = "2016-Nano-Server-Technical-Preview"
+$Versions = (Get-AzureRmVMImage -Location $Location -Offer $Offer -PublisherName $Publisher -Skus $Sku) | select -ExpandProperty Version
 
 
 #Canonical UbuntuServer

@@ -63,7 +63,7 @@ $osDiskUri = $storageAccount.PrimaryEndpoints.Blob.ToString() + "vhds/" + $diskN
 
 
 # VM
-$publisher = "MicrosoftVisualStudio"
+$publisher = "MicrosoftWindowsServer"
 $offer = "Windows"
 $sku = "10-Enterprise-N"
 $version = "10.1511.160326"
