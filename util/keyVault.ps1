@@ -18,9 +18,8 @@ Get-AzureRmKeyVault -VaultName $VaultName  -ResourceGroupName $ResourceGroupName
 
 
 ## Create Certificate (VS CLI)
-makecert -sky exchange -r -n "CN=azurermvault.vault.azure.net" -pe -a sha1 -len 2048 -ss My -sv C:\temp\azurermvault.pvk C:\temp\azurermvault.cer 
-pvk2pfx -pvk C:\\temp\azurermvault.pvk -pi <put the password here> -spc C:\\temp\\azurermvault.cer -pfx C:\\temp\\azurermvault.pfx
-
+#makecert -sky exchange -r -n "CN=azurermvault.vault.azure.net" -pe -a sha1 -len 2048 -ss My -sv C:\temp\azurermvault.pvk C:\temp\azurermvault.cer 
+#pvk2pfx -pvk C:\\temp\azurermvault.pvk -pi <put the password here> -spc C:\\temp\\azurermvault.cer -pfx C:\\temp\\azurermvault.pfx
 
 
 ## Add Certificate to Vault   
