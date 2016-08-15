@@ -67,7 +67,9 @@ It is recomended to create a standard base image of your OS and Applications, th
 In a Powershell Admin Console add the necessary DSC Modules
 
 ````
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted 
 Install-Module -Name xNetworking, xPSDesiredStateConfiguration, xWebAdministration
+
 Update-Module
 ````
 
