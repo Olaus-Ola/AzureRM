@@ -25,8 +25,8 @@ $StorageAccountName = "azurestoragez1"
 
 
 # Build Base Image 
-$i = 2
-For ($i=2; $i -lt 4; $i++) {
+$i = 14
+For ($i=14; $i -lt 16; $i++) {
   
   $VitualMachine = @{
        ResourceGroupName = $ResourceGroupName;
