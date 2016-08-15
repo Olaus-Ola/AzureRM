@@ -3,11 +3,11 @@
     <servicing>  
         <package action="install">  
             <assemblyIdentity name="Microsoft-NanoServer-IIS-Feature-Package" version="10.0.14300.1000" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" />  
-            <source location="c:\Microsoft-NanoServer-IIS-Package.cab" />  
+            <source location="c:\path\Microsoft-NanoServer-IIS-Package.cab" />  
         </package>  
         <package action="install">  
             <assemblyIdentity name="Microsoft-NanoServer-IIS-Feature-Package" version="10.0.14300.1000" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="en-US" />  
-            <source location="c:\Microsoft-NanoServer-IIS-Package_en-us.cab" />  
+            <source location="c:\path\Microsoft-NanoServer-IIS-Package_en-us.cab" />  
         </package>  
     </servicing>  
     <cpi:offlineImage cpi:source="" xmlns:cpi="urn:schemas-microsoft-com:cpi" />  
