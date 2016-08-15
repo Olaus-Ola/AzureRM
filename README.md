@@ -70,7 +70,12 @@ In a Powershell Admin Console add the necessary DSC Modules
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted 
 Install-Module -Name xNetworking, xPSDesiredStateConfiguration, xWebAdministration
 
-Update-Module
+Update-Module -Name xNetworking, xPSDesiredStateConfiguration, xWebAdministration
+````
+
+Module Documentation  
+````
+C:\Program Files\WindowsPowerShell\Modules
 ````
 
 ### Generalize and Extract Image
