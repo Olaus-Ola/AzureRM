@@ -68,9 +68,9 @@ In a Powershell Admin Console add the necessary DSC Modules
 
 ````
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted 
-Install-Module -Name xNetworking, xRemoteFile, xPSDesiredStateConfiguration, xWebAdministration
+Install-Module -Name xNetworking, xPSDesiredStateConfiguration, xWebAdministration
 
-Update-Module -Name xNetworking, xRemoteFile, xPSDesiredStateConfiguration, xWebAdministration
+Update-Module -Name xNetworking, xPSDesiredStateConfiguration, xWebAdministration
 ````
 
 Module Documentation  
