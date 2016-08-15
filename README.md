@@ -68,6 +68,7 @@ In a Powershell Admin Console add the necessary DSC Modules
 
 ````
 Install-Module -Name xNetworking, xPSDesiredStateConfiguration, xWebAdministration
+Update-Module
 ````
 
 ### Generalize and Extract Image
