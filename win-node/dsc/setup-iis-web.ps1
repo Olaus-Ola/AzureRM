@@ -4,15 +4,18 @@ Configuration WebSite
         [string[]]$NodeName = 'localhost'
     ) 
 
-    Import-DscResource -Module xWebAdministration, PSDesiredStateConfiguration
+    Import-DscResource -Module xWebAdministration     
+    Import-DSCResource -Module xPSDesiredStateConfiguration 
+    Import-DSCResource -Module xNetworking 
 
     Node $NodeName { 
 
 	  WindowsFeature InstallWebServer 
 	  { 
-	       Name = "Web-Server"
-           Ensure = "Present"
+	        Name = "Web-Server"
+            Ensure = "Present"
       }
+
     } 
 
 }

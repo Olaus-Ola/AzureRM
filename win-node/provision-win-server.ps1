@@ -18,13 +18,15 @@ $StorageAccountName = "azurestoragez1"
   #Local File System
   Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-iis-web.ps1 -OutputArchivePath ".\setup-iis-web.ps1.zip" -Force 
 
+  #Get Product Id for DSC Install
+  Get-WmiObject Win32_Product | Format-Table IdentifyingNumber, Name, Version 
 
 #endregion
 
 
 # Build Base Image 
-$i = 3
-For ($i=3; $i -lt 6; $i++) {
+$i = 15
+For ($i=15; $i -lt 17; $i++) {
   
   $VitualMachine = @{
        ResourceGroupName = $ResourceGroupName;
@@ -48,7 +50,7 @@ For ($i=3; $i -lt 6; $i++) {
 # Manually Add - PowerShell Desired State Configuration
 # -- Upload Zip
 #    CONFIGURATIONFUNCTION: setup-iis-web.ps1\WebSite 
-#    VERSION: 2.8
+#    VERSION: 2.17
 
 
 
