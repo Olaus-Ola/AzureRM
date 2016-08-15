@@ -76,3 +76,4 @@ Add-AzureRmVMNetworkInterface  -Id $nic.Id
 
  
 New-AzureRmVM -ResourceGroupName $ResourceGroupName -Location $Location -VM $vm
+

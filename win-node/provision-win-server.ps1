@@ -9,9 +9,23 @@ $SubNetIndex = 2
 $StorageAccountName = "azurestoragez1"
 
 
+#region Publish DSC Image 
+  
+  # Azure Blob Storage 
+  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-iis-web.ps1 `
+                                    -ResourceGroupName $ResourceGroupName -StorageAccountName $storageAccountName -Force 
+
+  #Local File System
+  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-iis-web.ps1 -OutputArchivePath ".\setup-iis-web.ps1.zip" -Force 
+
+
+#endregion
+
+
 # Build Base Image 
-$i = 1
-For ($i=1; $i -lt 2; $i++) {
+$i = 3
+For ($i=3; $i -lt 6; $i++) {
+  
   $VitualMachine = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
@@ -20,29 +34,44 @@ For ($i=1; $i -lt 2; $i++) {
        SubnetIndex = $SubnetIndex;
        VmName = "win-server-$i";
        NicName = "win-server-nic-$i";
-       VmSize = "Standard_D1_v2";
+       VmSize = "Standard_D2_v2";
        };
 
     . .\..\base\build-win-server.ps1 @VitualMachine;
-
 }
 
 
-#Publish DSC Image 
-  
-  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-dotnet-core-rc2.ps1 `
-                                     -ResourceGroupName $resourceGroup -StorageAccountName $storageAccountName -Force
+
+# Check machine in Azure Portal
+# Manually Reboot 
+ 
+# Manually Add - PowerShell Desired State Configuration
+# -- Upload Zip
+#    CONFIGURATIONFUNCTION: setup-iis-web.ps1\WebSite 
+#    VERSION: 2.8
+
+
+
+
 
 
 
 #Apply DSC Configuration
-$i = 1
-For ($i=1; $i -lt 2; $i++) {
 
- Set-AzureRmVMDSCExtension -ResourceGroupName $resourceGroup -VMName  win-server-$i -Version '2.15' `
-                              -ArchiveBlobName "win-web-server-dsc.ps1.zip" `
-                              -ArchiveStorageAccountName $storageAccountName `
-                              -ConfigurationName "WebApp"
+$i = 3
+For ($i=3; $i -lt 4; $i++) {
+
+ $achiveblobName = 'setup-iis-web.zip';
+
+ Set-AzureRmVMDSCExtension -ResourceGroupName $ResourceGroupName -VMName  win-server-$i -Version '2.8' `
+                              -ArchiveBlobName $achiveblobName `
+                              -ArchiveStorageAccountName $StorageAccountName `
+                              -ConfigurationName "ConfigureWeb" -AutoUpdate
 
 }
+
+
+
+
+
 
