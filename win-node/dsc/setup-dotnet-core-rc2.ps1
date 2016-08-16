@@ -11,43 +11,56 @@ Node $nodeName
   {
 
     LocalConfigurationManager 
-        { 
-            # This is false by default
-            RebootNodeIfNeeded = $true
-        } 
+    { 
+        # This is false by default
+        RebootNodeIfNeeded = $true
+    } 
 
     WindowsFeature WebServerRole
     {
-      Name = "Web-Server"
-      Ensure = "Present"
+        Name = "Web-Server"
+        Ensure = "Present"
     }
+
     WindowsFeature WebManagementConsole
     {
-      Name = "Web-Mgmt-Console"
-      Ensure = "Present"
+        Name = "Web-Mgmt-Console"
+        Ensure = "Present"
     }
+
 
     xRemoteFile Payload {
         Uri             = "https://github.com/stuartshay/AzureRM/raw/master/assets/webapp.zip" 
-        DestinationPath = "C:\WindowsAzure\website.zip" 
+        DestinationPath = "C:\Setup\website.zip" 
     }
+
 
     xRemoteFile InstallDotNetCoreWindowsHosting {
         Uri             = "https://go.microsoft.com/fwlink/?LinkId=817246" 
-        DestinationPath = "C:\WindowsAzure\InstallDotNetCoreWindowsHosting" 
+        DestinationPath = "C:\Setup\InstallDotNetCoreWindowsHosting.exe" 
     }
+
 
     xRemoteFile DotNetCoreSDK {
         Uri             = "https://go.microsoft.com/fwlink/?LinkID=809122" 
-        DestinationPath = "C:\WindowsAzure\DotNetCore.1.0.0-SDK.Preview2-x64.exe"
+        DestinationPath = "C:\Setup\DotNetCore.1.0.0-SDK.Preview2-x64.exe"
     }
 
-        Archive WebAppExtract
-        {              
-            Path = "C:\WindowsAzure\website.zip"
-            Destination = "c:\inetpub"
-            DependsOn = "[xRemoteFile]Payload"            
-        }
+
+    xRemoteFile AppVeyorDeploymentAgent
+    {  
+         Uri             = "https://www.appveyor.com/downloads/deployment-agent/latest/AppveyorDeploymentAgent.msi"
+         DestinationPath = "C:\Setup\AppveyorDeploymentAgent.v3.12.0.msi"
+    } 
+
+
+    Archive WebAppExtract
+    {              
+         Path = "C:\Setup\website.zip"
+         Destination = "C:\inetpub\webapp\wwwroot"
+         DependsOn = "[xRemoteFile]Payload"            
+    }
+
 
     Package InstallDotNetCoreWindowsHosting
     {
@@ -58,31 +71,27 @@ Node $nodeName
            ProductId = "4ADC4F4A-2D55-442A-8655-FBF619F94A69"
            DependsOn = "[xRemoteFile]InstallDotNetCoreWindowsHosting"
     }
-    Package DotNetCoreSDK
-    {
-           Ensure = "Present"
-           Path = "C:\WindowsAzure\DotNetSDK.exe"
-           Arguments = "/q /norestart"
-           Name = "DotNetSDK"
-           ProductId = "E7195A54-693B-4ECF-A7F5-1972A720068B"
-           DependsOn = "[xRemoteFile]DotNetCore.1.0.0-SDK.Preview2-x64.exe"
-    }
+   
 
 	xWebsite DefaultSite   
-      {  
+    {  
             Ensure          = "Present"
             Name            = "Default Web Site"
             State           = "Stopped"
             PhysicalPath    = "C:\inetpub\wwwroot" 
             DependsOn       = "[WindowsFeature]WebServerRole"
-      }
+    }
+
+
 	xWebAppPool WebAppAppPool   
-      {  
+    {  
             Ensure          = "Present"  
             Name            = "web-app" 
             State           = "Started"
             managedRuntimeVersion = ""
       }  
+
+
 	xWebsite WebAppWebSite   
         {  
             Ensure          = "Present"  

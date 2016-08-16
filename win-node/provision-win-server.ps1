@@ -18,6 +18,11 @@ $StorageAccountName = "azurestoragez1"
   #Local File System
   Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-iis-web.ps1 -OutputArchivePath ".\setup-iis-web.ps1.zip" -Force 
 
+  #find-module -name xPSDesiredStateConfiguration -requiredversion 3.0.3.4 | install-module -force
+  #setup-dotnet-core-rc2.ps1\Payload
+  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-dotnet-core-rc2.ps1 -OutputArchivePath ".\setup-dotnet-core-rc2.ps1.zip" -Force 
+
+
   #Get Product Id for DSC Install
   Get-WmiObject Win32_Product | Format-Table IdentifyingNumber, Name, Version 
 
@@ -25,8 +30,8 @@ $StorageAccountName = "azurestoragez1"
 
 
 # Build Base Image 
-$i = 7
-For ($i=7; $i -lt 9; $i++) {
+$i = 72
+For ($i=72; $i -lt 75; $i++) {
   
   $VitualMachine = @{
        ResourceGroupName = $ResourceGroupName;
