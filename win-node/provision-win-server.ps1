@@ -44,6 +44,7 @@ For ($i=14; $i -lt 16; $i++) {
 
 
 
+
 # Check machine in Azure Portal
 # Manually Reboot 
  

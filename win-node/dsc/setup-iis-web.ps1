@@ -55,6 +55,19 @@ Configuration WebSite
       } 
 
 
+      xRemoteFile TestWebSite
+      {  
+            Uri             = "https://github.com/stuartshay/AzureRM/raw/master/assets/webapp.zip"
+            DestinationPath = "C:\website\webapp.zip"
+      } 
+
+      Archive UnpackWebsite 
+      {
+            Ensure          = "Present" 
+            Path            = "C:\website\webapp.zip"
+            Destination     = "C:\website\"
+      }
+
 
       xWebAppPool WebAppAppPool   
       {  
@@ -74,7 +87,7 @@ Configuration WebSite
             Direction    = "Inbound"
             LocalPort    = ("8080")
             Protocol     = "TCP"
-} 
+      } 
 
 
 
