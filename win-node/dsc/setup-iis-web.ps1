@@ -55,6 +55,16 @@ Configuration WebSite
       } 
 
 
+      Package InstallDotNetCoreWindowsHosting
+      {
+           Ensure = "Present"
+           Path = "C:\setup\DotNetCore.1.0.0-WindowsHosting.exe"
+           Arguments = "/q /norestart"
+           Name = "DotNetCore"
+           ProductId = "4ADC4F4A-2D55-442A-8655-FBF619F94A69"
+           DependsOn = "[xRemoteFile]DotNetCoreWindowsHosting"
+    }
+
       xRemoteFile TestWebSite
       {  
             Uri             = "https://github.com/stuartshay/AzureRM/raw/master/assets/webapp.zip"

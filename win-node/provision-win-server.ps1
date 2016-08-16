@@ -25,8 +25,8 @@ $StorageAccountName = "azurestoragez1"
 
 
 # Build Base Image 
-$i = 14
-For ($i=14; $i -lt 16; $i++) {
+$i = 7
+For ($i=7; $i -lt 9; $i++) {
   
   $VitualMachine = @{
        ResourceGroupName = $ResourceGroupName;
@@ -41,7 +41,6 @@ For ($i=14; $i -lt 16; $i++) {
 
     . .\..\base\build-win-server.ps1 @VitualMachine;
 }
-
 
 
 
