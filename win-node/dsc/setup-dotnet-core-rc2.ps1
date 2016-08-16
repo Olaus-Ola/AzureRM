@@ -28,101 +28,77 @@ Node $nodeName
     }
 
     xRemoteFile Payload {
-        Uri             = "https://github.com/stuartshay/AzureRM/raw/master/WebSite.zip" 
+        Uri             = "https://github.com/stuartshay/AzureRM/raw/master/assets/webapp.zip" 
         DestinationPath = "C:\WindowsAzure\website.zip" 
     }
 
-    xRemoteFile DotNetCore {
+    xRemoteFile InstallDotNetCoreWindowsHosting {
         Uri             = "https://go.microsoft.com/fwlink/?LinkId=817246" 
-        DestinationPath = "C:\WindowsAzure\DotNetCore.exe" 
+        DestinationPath = "C:\WindowsAzure\InstallDotNetCoreWindowsHosting" 
     }
 
-    xRemoteFile DotNetSDK {
+    xRemoteFile DotNetCoreSDK {
         Uri             = "https://go.microsoft.com/fwlink/?LinkID=809122" 
-        DestinationPath = "C:\WindowsAzure\DotNetSDK.exe"
+        DestinationPath = "C:\WindowsAzure\DotNetCore.1.0.0-SDK.Preview2-x64.exe"
     }
 
-    Script PrepareEnvironment
-    {
-        TestScript = {
-            Test-Path "C:\website\build\"
+        Archive WebAppExtract
+        {              
+            Path = "C:\WindowsAzure\website.zip"
+            Destination = "c:\inetpub"
+            DependsOn = "[xRemoteFile]Payload"            
         }
-        SetScript ={
-            Expand-Archive C:\WindowsAzure\website.zip -DestinationPath c:\ -Force
-			Write-Verbose "Info:Extracted payload"
-			"Info:Extracted payload" | Out-File c:\website\build.log -Append -Force
-        }
-        GetScript = {@{Result = Test-Path "C:\website\build\"}}
-        DependsOn = "[xRemoteFile]Payload"
-    }
 
-    Package DotNetCore
+    Package InstallDotNetCoreWindowsHosting
     {
            Ensure = "Present"
-           Path = "C:\WindowsAzure\DotNetCore.exe"
+           Path = "C:\WindowsAzure\DotNetCore.1.0.0-WindowsHosting.exe"
            Arguments = "/q /norestart"
            Name = "DotNetCore"
            ProductId = "4ADC4F4A-2D55-442A-8655-FBF619F94A69"
-           DependsOn = "[xRemoteFile]DotNetCore"
+           DependsOn = "[xRemoteFile]InstallDotNetCoreWindowsHosting"
     }
-
-    Package DotNetSDK
+    Package DotNetCoreSDK
     {
            Ensure = "Present"
            Path = "C:\WindowsAzure\DotNetSDK.exe"
            Arguments = "/q /norestart"
            Name = "DotNetSDK"
            ProductId = "E7195A54-693B-4ECF-A7F5-1972A720068B"
-           DependsOn = "[xRemoteFile]DotNetSDK"
+           DependsOn = "[xRemoteFile]DotNetCore.1.0.0-SDK.Preview2-x64.exe"
     }
 
+	xWebsite DefaultSite   
+      {  
+            Ensure          = "Present"
+            Name            = "Default Web Site"
+            State           = "Stopped"
+            PhysicalPath    = "C:\inetpub\wwwroot" 
+            DependsOn       = "[WindowsFeature]WebServerRole"
+      }
 	xWebAppPool WebAppAppPool   
       {  
             Ensure          = "Present"  
             Name            = "web-app" 
             State           = "Started"
             managedRuntimeVersion = ""
-      } 
-
-    Script BuildApp
-    {
-        TestScript = { 
-			if (Test-Path c:\website\build.log) {
-				$content = Get-Content c:\website\build.log
-				if ($content -match "Error:*" -or !($content -match "Success:*")) {return $false}
-				else {return $true}
-			}
-            return $false
+      }  
+	xWebsite WebAppWebSite   
+        {  
+            Ensure          = "Present"  
+            Name            = "web-app" 
+            State           = "Started"
+            PhysicalPath    = "C:\inetpub\webapp\wwwroot"
+            ApplicationPool = "web-app"
+            BindingInfo = MSFT_xWebBindingInformation
+                    {
+                        Port = '8080'
+                        IPAddress = '*'
+                        Protocol = 'HTTP'
+                    }
+            DependsOn = "[xWebAppPool]WebAppAppPool"
         }
-        SetScript = {
-			try {
-				Write-Verbose "Info:Creating Task"
-				"Info:Creating Task" | Out-File c:\website\build.log -Append
-
-				$scriptpath = "C:\website\Build\Sixeyed.Iaas\src\Sixeyed.Iaas.WebApp\run.ps1"
-				"Set-Location c:\website\build\sixeyed.iaas\src\sixeyed.iaas.webapp\" > $scriptpath
-				"dotnet restore >> c:\website\restore.txt" >> $scriptpath
-				"dotnet build >> c:\website\build.txt" >> $scriptpath
-				"dotnet run >> c:\website\run.txt" >> $scriptpath
-				
-				$action = New-ScheduledTaskAction -Execute 'Powershell.exe' -Argument "-NoProfile -NoLogo -NonInteractive -ExecutionPolicy Bypass -File $scriptpath"
-				$trigger = New-ScheduledTaskTrigger -AtStartup
-				$runas = New-ScheduledTaskPrincipal -UserID "NT AUTHORITY\SYSTEM" -LogonType ServiceAccount -RunLevel Highest
-				$task = New-ScheduledTask -Action $action -Principal $runas -Trigger $trigger
-				Register-ScheduledTask "dotnettask" -InputObject $task -Force
-                Start-ScheduledTask dotnettask
-
-				Write-Verbose "Info:Task Registered"
-				"Success:Task Registered" | Out-File c:\website\build.log -Append
-			}
-			catch {
-				Write-Verbose "Error:$($Error[0].Exception)"
-				Out-File -FilePath c:\website\error.log -InputObject $error
-				"Error:$($Error[0].Exception)" | Out-File c:\website\build.log -Append -Force
-			}
-		}
-        GetScript = {@{Result = (Get-Content c:\website\build.log) -notmatch "Error*" }}
-        DependsOn = @('[Package]DotNetCore', '[Package]DotNetSDK', '[Script]PrepareEnvironment')
-    }
   }
 }
+
+payload -nodename localhost
