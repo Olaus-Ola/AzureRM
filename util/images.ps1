@@ -35,3 +35,16 @@ Get-AzureRmVMImage -Location $Location -PublisherName "Canonical" -Offer "Ubuntu
 ## Get Image Sizes 
 Get-AzureRmVMSize –Location $Location |ft
 
+
+#Modules 
+# System modules: %windir%\System32\WindowsPowerShell\v1.0\Modules
+# Current user modules:  %UserProfile%\Documents\WindowsPowerShell\Modules
+
+Get-Module -ListAvailable -FullyQualifiedName xPSDesiredStateConfiguration	
+Remove-Module -Name xPSDesiredStateConfiguration
+
+Get-Command -Module xPSDesiredStateConfiguration | Select-Object -Property name, version -First 3
+Remove-Module -Name xPSDesiredStateConfiguration
+
+Find-Module -name xPSDesiredStateConfiguration -requiredversion 3.0.3.4 | install-module -force
+  

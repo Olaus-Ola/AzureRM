@@ -16,28 +16,22 @@ $StorageAccountName = "azurestoragez1"
   Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-iis-web.ps1 `
                                     -ResourceGroupName $ResourceGroupName -StorageAccountName $storageAccountName -Force 
 
+
   #Local File System
-  #FILE TO UPLOAD: setup-iis-web.ps1.zip
-  #CONFIGURATIONFUNCTION: setup-iis-web.ps1\WebSite 
-  #VERSION: 2.17
+  # FILE TO UPLOAD: setup-iis-web.ps1.zip
+  # Module-Qualified Name of Configuration - setup-iis-web.ps1\payload
+  # Configuration Arguments - nodeName=localhost
+  # Versión = 2.20 (Latest)
+  # Allow minor versión updates true
+
   Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-iis-web.ps1 -OutputArchivePath ".\setup-iis-web.ps1.zip" -Force 
-
-
   
-  #find-module -name xPSDesiredStateConfiguration -requiredversion 3.0.3.4 | install-module -force
-  #setup-dotnet-core-rc2.ps1\Payload
-  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-dotnet-core-rc2.ps1 -OutputArchivePath ".\setup-dotnet-core-rc2.ps1.zip" -Force 
-
-
-  #Get Product Id for DSC Install
-  Get-WmiObject Win32_Product | Format-Table IdentifyingNumber, Name, Version 
-
 #endregion
 
 
 # Build Base Image 
-$i = 52
-For ($i=52; $i -lt 55; $i++) {
+$i = 30
+For ($i=30; $i -lt 32; $i++) {
   
   $VitualMachine = @{
        ResourceGroupName = $ResourceGroupName;
@@ -55,20 +49,12 @@ For ($i=52; $i -lt 55; $i++) {
 
 
 
-# Check machine in Azure Portal
-# Manually Reboot 
- 
-# Manually Add - PowerShell Desired State Configuration
-# -- Upload Zip
-#    CONFIGURATIONFUNCTION: setup-iis-web.ps1\WebSite 
-#    VERSION: 2.17
-
-
-
 #Apply DSC Configuration
 
-$i = 3
-For ($i=3; $i -lt 4; $i++) {
+$i = 30
+For ($i=30; $i -lt 32; $i++) {
+
+ #Need to Fix Parameters Below
 
  $achiveblobName = 'setup-iis-web.zip';
 
@@ -80,20 +66,6 @@ For ($i=3; $i -lt 4; $i++) {
 }
 
 
-$null = Register-ObjectEvent -InputObject $psISE.PowerShellTabs.SelectedPowerShellTab -EventName 'PropertyChanged' -Action {
-    if($args[1].PropertyName -eq 'LastEditorWithFocus' -and $env:AutoChangeLocation -eq $true)
-    {
-        $Location = Get-Location
-        $NewLocation = split-path $psISE.PowerShellTabs.SelectedPowerShellTab.Files.SelectedFile.FullPath
-        if ($Location.path -ne $NewLocation)
-        {
-            Set-Location $NewLocation
-            Out-Host -InputObject ' '
-            prompt
-        }
-    }
-}
-[Environment]::SetEnvironmentVariable('AutoChangeLocation',$true)
 
 
 
