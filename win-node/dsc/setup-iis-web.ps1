@@ -6,6 +6,7 @@ Configuration WebSite
 
     Import-DscResource -Module xWebAdministration     
     Import-DSCResource -Module xPSDesiredStateConfiguration 
+    Import-DSCResource -Module PSDesiredStateConfiguration
     Import-DSCResource -Module xNetworking 
 
     Node $NodeName { 
@@ -89,8 +90,6 @@ Configuration WebSite
             LocalPort    = ("8080")
             Protocol     = "TCP"
       } 
-
-
 
     } 
 

@@ -1,6 +1,7 @@
 Login-AzureRMAccount
 Set-Location C:\Users\sshay\Documents\GitHub\AzureRM\win-node
 
+
 $ResourceGroupName = 'AzureRM'
 $Location = 'East US 2'
 $VnetName = "AzureRmVNet"
@@ -16,8 +17,13 @@ $StorageAccountName = "azurestoragez1"
                                     -ResourceGroupName $ResourceGroupName -StorageAccountName $storageAccountName -Force 
 
   #Local File System
+  #FILE TO UPLOAD: setup-iis-web.ps1.zip
+  #CONFIGURATIONFUNCTION: setup-iis-web.ps1\WebSite 
+  #VERSION: 2.17
   Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-iis-web.ps1 -OutputArchivePath ".\setup-iis-web.ps1.zip" -Force 
 
+
+  
   #find-module -name xPSDesiredStateConfiguration -requiredversion 3.0.3.4 | install-module -force
   #setup-dotnet-core-rc2.ps1\Payload
   Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-dotnet-core-rc2.ps1 -OutputArchivePath ".\setup-dotnet-core-rc2.ps1.zip" -Force 
@@ -30,8 +36,8 @@ $StorageAccountName = "azurestoragez1"
 
 
 # Build Base Image 
-$i = 72
-For ($i=72; $i -lt 75; $i++) {
+$i = 52
+For ($i=52; $i -lt 55; $i++) {
   
   $VitualMachine = @{
        ResourceGroupName = $ResourceGroupName;
@@ -59,10 +65,6 @@ For ($i=72; $i -lt 75; $i++) {
 
 
 
-
-
-
-
 #Apply DSC Configuration
 
 $i = 3
@@ -78,7 +80,20 @@ For ($i=3; $i -lt 4; $i++) {
 }
 
 
-
+$null = Register-ObjectEvent -InputObject $psISE.PowerShellTabs.SelectedPowerShellTab -EventName 'PropertyChanged' -Action {
+    if($args[1].PropertyName -eq 'LastEditorWithFocus' -and $env:AutoChangeLocation -eq $true)
+    {
+        $Location = Get-Location
+        $NewLocation = split-path $psISE.PowerShellTabs.SelectedPowerShellTab.Files.SelectedFile.FullPath
+        if ($Location.path -ne $NewLocation)
+        {
+            Set-Location $NewLocation
+            Out-Host -InputObject ' '
+            prompt
+        }
+    }
+}
+[Environment]::SetEnvironmentVariable('AutoChangeLocation',$true)
 
 
 
