@@ -41,12 +41,6 @@ Node $nodeName
     }
 
 
-    xRemoteFile DotNetCoreSDK {
-        Uri             = "https://go.microsoft.com/fwlink/?LinkID=809122" 
-        DestinationPath = "C:\Setup\DotNetCore.1.0.0-SDK.Preview2-x64.exe"
-    }
-
-
     xRemoteFile AppVeyorDeploymentAgent
     {  
          Uri             = "https://www.appveyor.com/downloads/deployment-agent/latest/AppveyorDeploymentAgent.msi"
