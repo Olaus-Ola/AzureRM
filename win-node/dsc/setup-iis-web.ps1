@@ -6,9 +6,10 @@ Param (
     )
 
 Import-DscResource -ModuleName PSDesiredStateConfiguration
-Import-DscResource -ModuleName xPSDesiredStateConfiguration
+Import-DscResource -ModuleName @{ModuleName="xPSDesiredStateConfiguration"; ModuleVersion="3.13.0.0"}
 Import-DscResource -ModuleName xWebAdministration
 Import-DscResource -ModuleName xNetworking
+
 
 Node $nodeName
 {
@@ -106,5 +107,18 @@ Node $nodeName
                 PhysicalPath    = "C:\inetpub\wwwroot" 
                 DependsOn       = "[Script]iisReset"
         }
+
+
+        xFirewall Http8080
+        {
+            Name         = "Htpp-8080"
+            DisplayName  = "Htpp-8080"
+            Ensure       = "Present"
+            Action       = "Allow"
+            Direction    = "Inbound"
+            LocalPort    = ("8080")
+            Protocol     = "TCP"
+        }         
+
     }
 }
