@@ -1,7 +1,9 @@
 Configuration Payload
 {
 
-Param ( [string] $nodeName )
+Param (
+    [Parameter(Mandatory=$false)][string] $nodeName
+    )
 
 Import-DscResource -ModuleName PSDesiredStateConfiguration
 Import-DscResource -ModuleName xPSDesiredStateConfiguration
@@ -9,8 +11,7 @@ Import-DscResource -ModuleName xWebAdministration
 Import-DscResource -ModuleName xNetworking
 
 Node $nodeName
-  {
-
+{
     LocalConfigurationManager 
     { 
         # This is false by default
@@ -64,7 +65,7 @@ Node $nodeName
                DependsOn = "[xRemoteFile]InstallDotNetCoreWindowsHosting"
         }
 
-	xWebAppPool WebAppAppPool   
+	    xWebAppPool WebAppAppPool   
         {  
                 Ensure          = "Present"  
                 Name            = "web-app" 
@@ -73,7 +74,7 @@ Node $nodeName
                 DependsOn       = "[WindowsFeature]WebServerRole"
         }  
 
-	xWebsite WebAppWebSite   
+	    xWebsite WebAppWebSite   
         {  
                 Ensure          = "Present"  
                 Name            = "web-app" 
@@ -95,7 +96,6 @@ Node $nodeName
             SetScript =  { iisreset }
             GetScript = {@{Result = 'Will perform "iisreset" if invoked'}}
             DependsOn =  @('[xWebsite]WebAppWebSite', '[xWebAppPool]WebAppAppPool')
-
         }
 
         xWebsite DefaultSite   
