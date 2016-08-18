@@ -73,6 +73,12 @@ Install-Module -Name xNetworking, xPSDesiredStateConfiguration, xWebAdministrati
 Update-Module -Name xNetworking, xPSDesiredStateConfiguration, xWebAdministration
 ````
 
+Linux Modules        
+````
+Install-Module -Name NX -Scope AllUsers -Force
+````
+ 
+
 Module Documentation  
 ````
 C:\Program Files\WindowsPowerShell\Modules

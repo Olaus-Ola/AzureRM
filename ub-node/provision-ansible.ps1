@@ -10,8 +10,8 @@ $SubNetIndex = 2
 $StorageAccountName = "azurestoragez1"
 
 
-$i = 0
-For ($i=0; $i -lt 1; $i++) {
+$i = 5
+For ($i=5; $i -lt 7; $i++) {
 
     $VitualMachine = @{
        ResourceGroupName = $ResourceGroupName;
@@ -25,9 +25,14 @@ For ($i=0; $i -lt 1; $i++) {
        };
 
    .  .\..\base\build-ub.ps1 @VitualMachine;
-    
 
 }
+
+
+
+
+
+
 
 # Notes 
 ub-ansible-0        -  192.168.3.5

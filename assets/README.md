@@ -2,7 +2,7 @@
 
 ### webapp.zip
 
-Sample .NET Core Web App
+Sample .NET 1.0 Core Web App
 
 ````
 cd wwwroot

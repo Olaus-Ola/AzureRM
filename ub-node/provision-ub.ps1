@@ -8,9 +8,25 @@ $SubNetIndex = 2
 
 $StorageAccountName = "azurestoragez1"
 
+#Create MOF File
+./dsc/setup-nginx-proxy.ps1
 
-$i = 0
-For ($i=0; $i -lt 1; $i++) {
+# Upload MOF File
+$Upload = @{
+
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = "mof"
+    File = "mof\localhost.mof"
+ };
+
+.\upload.ps1 @Upload
+
+
+#Create VM
+$i = 9
+For ($i=9; $i -lt 10; $i++) {
 
     $VitualMachine = @{
        ResourceGroupName = $ResourceGroupName;
@@ -24,8 +40,20 @@ For ($i=0; $i -lt 1; $i++) {
        };
 
    .  .\..\base\build-ub.ps1 @VitualMachine;
-    
-   ##  .\extension-ub.ps1 @VitualMachine;
 
 }
 
+
+
+#Apply DSC Extension
+$DSC = @{
+
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = "mof"
+    MOFfile = "localhost.mof"
+    VmName = "ub-ansible-client-9"
+ };
+
+ .\extension-ub.ps1 @DSC
