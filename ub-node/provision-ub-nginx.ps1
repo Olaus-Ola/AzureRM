@@ -34,8 +34,8 @@ For ($i=9; $i -lt 10; $i++) {
        StorageAccountName = $StorageAccountName;
        VnetName = $VnetName;  
        SubnetIndex = $SubNetIndex;
-       VmName = "ub-ansible-client-$i";
-       NicName = "ub-ansible-client-nic-$i"
+       VmName = "ub-nginx-proxy-$i";
+       NicName = "ub-nginx-proxy-nic-$i"
        VmSize = "Standard_D1_v2"
        };
 
@@ -53,7 +53,7 @@ $DSC = @{
     StorageAccountName = $StorageAccountName;
     ContainerName = "mof"
     MOFfile = "localhost.mof"
-    VmName = "ub-ansible-client-9"
+    VmName = "ub-nginx-proxy-9"
  };
 
  .\extension-ub.ps1 @DSC
