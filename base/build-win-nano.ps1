@@ -49,8 +49,6 @@ write-output("ResourceGroupName " + $ResourceGroupName.ToString())
 write-output("VaultName " + $VaultName.ToString())
 
 
-
-
 Write-Verbose "Explicit arg VM name: $VMName"
 Write-Verbose "Explicit arg VM size: $VMSize"
 Write-Verbose "Explicit arg admin user name: $AdminUsername"
@@ -92,7 +90,7 @@ $osDiskUri = $storageAccount.PrimaryEndpoints.Blob.ToString() + "vhds/" + $diskN
 $publisher = "MicrosoftVisualStudio"
 $offer = "WindowsServer"
 $sku = "2016-Nano-Server-Technical-Preview"
-$version = "10.1511.160326"
+$version = "2016.0.20160801"
 
 $vm = New-AzureRmVMConfig -VMName $VmName -VMSize $VmSize |
 Set-AzureRmVMOperatingSystem  -Windows -ComputerName $VmName -Credential $cred  |
@@ -100,13 +98,6 @@ Set-AzureRmVMSourceImage  -PublisherName $publisher -Offer $offer -Skus $sku -Ve
 Set-AzureRmVMOSDisk  -Name $diskName -VhdUri $osDiskUri -Caching ReadWrite -CreateOption fromImage | 
 Add-AzureRmVMNetworkInterface  -Id $nic.Id
 
-
-
- 
 New-AzureRmVM -ResourceGroupName $ResourceGroupName -Location $Location -VM $vm
 
 
-
-
-
-#New-NanoServerImage -DeploymentType Guest -Edition Standard -MediaPath \\Path\To\Media\en_us -BasePath .\Base -TargetPath .\NanoServer.wim -Development
