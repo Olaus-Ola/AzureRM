@@ -2,6 +2,11 @@ Configuration WebProxy
 {     
     Import-DscResource -Module nx   
     
+Param (
+    [Parameter(Mandatory=$true)][string] $StorageAccountName
+    )
+
+
     Node localhost {  
 
         nxPackage Nginx  
@@ -20,7 +25,7 @@ Configuration WebProxy
         
         nxFile ProxyConf 
         {
-            SourcePath = "https://psodiaasm3.blob.core.windows.net/test/nginx.conf"
+            SourcePath = "https://$StorageAccountName.blob.core.windows.net/config/nginx.conf"
             DestinationPath = '/etc/nginx/sites-available/proxy'
             DependsOn = '[nxPackage]Nginx'
         }  
@@ -63,4 +68,4 @@ service nginx restart
 }
 
 #build MOF:
-WebProxy -OutputPath "../mof"
+WebProxy -OutputPath "mof"

@@ -9,7 +9,9 @@ $SubNetIndex = 2
 $StorageAccountName = "azurestoragez1"
 
 #Create MOF File
-./dsc/setup-nginx-proxy.ps1
+./dsc/setup-nginx-proxy.ps1 -StorageAccountName $StorageAccountName 
+
+
 
 # Upload MOF File
 $Upload = @{
@@ -18,10 +20,12 @@ $Upload = @{
     Location = $Location;
     StorageAccountName = $StorageAccountName;
     ContainerName = "mof"
-    File = "mof\localhost.mof"
+    File = "localhost.mof"
  };
 
 .\upload.ps1 @Upload
+
+
 
 
 #Create VM
