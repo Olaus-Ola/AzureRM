@@ -1,9 +1,9 @@
-$rg = Get-AzureRmResourceGroup 'putnamehere'
+$rg = Get-AzureRmResourceGroup 'put_name_here'
 $st = Get-AzureRmStorageAccount -ResourceGroupName $rg.ResourceGroupName
 
 $containerName = "ub-node"
 
-$currentLocation = "C:\Users\_\Downloads\AzureRM-master\ub-node"
+$currentLocation = "path_to\ub-node"
 Set-Location $currentLocation
 $relativePath = @()
 foreach ($file in (Get-ChildItem $currentLocation -Recurse -File)) {
