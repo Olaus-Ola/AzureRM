@@ -1,8 +1,11 @@
-$rg = Get-AzureRmResourceGroup 'putnamehere'
+$rg = Get-AzureRmResourceGroup 'put_name_here'
 $st = Get-AzureRmStorageAccount -ResourceGroupName $rg.ResourceGroupName
-$mofname
+$stKey = (Get-AzureRMStorageAccountKey -StorageAccountName $st.StorageAccountName -ResourceGroupName $rg.ResourceGroupName).value[0]
 
-$mofpath = $StorageAccount | Publish-AzureRmVMDscConfiguration -ConfigurationPath $mofpath
+$mofname = 'put_mof_name_here'
+$configurationpath = 'put_.ps1_path_here'
+
+$mofpath = $StorageAccount | Publish-AzureRmVMDscConfiguration -ConfigurationPath $configurationpath
 
 $rgName = $rg.ResourceGroupName
 $vmName = $vm.Name
