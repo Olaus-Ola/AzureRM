@@ -7,7 +7,7 @@ Param (
     )
 
 
-    Node localhost {  
+    Node webproxy {  
 
         nxPackage Nginx  
         {  
