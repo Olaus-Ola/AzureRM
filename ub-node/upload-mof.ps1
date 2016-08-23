@@ -30,7 +30,7 @@ write-output("Storage Account Name: " + $StorageAccountName)
 write-output("Primary StorageKey: " + $storageAccountKey)
 
 $UploadFile = @{
-    Context = $StorageContext;
+    Context = $StorageContext; 
     Container = $ContainerName;
     File = $File
 }

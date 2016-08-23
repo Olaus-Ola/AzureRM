@@ -1,4 +1,5 @@
 Login-AzureRMAccount
+Save-AzureRmProfile
 
 $Location = 'East US 2'
 
@@ -21,7 +22,6 @@ write-output("Current Versions:" + $Versions) #4.0.20160617
 #Windows Nano Server 
 $Publisher = "MicrosoftWindowsServer"
 $Offer = "WindowsServer"
-Get-AzureRmVmImageSku -Location $Location -PublisherName $Publisher -Offer $Offer | Out-GridView
 $Sku = "2016-Nano-Server-Technical-Preview"
 $Versions = (Get-AzureRmVMImage -Location $Location -Offer $Offer -PublisherName $Publisher -Skus $Sku) | select -ExpandProperty Version
 

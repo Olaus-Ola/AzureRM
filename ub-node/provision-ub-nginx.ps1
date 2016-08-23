@@ -1,4 +1,4 @@
- ##Login-AzureRMAccount
+Login-AzureRMAccount
 Set-Location C:\Users\sshay\Documents\GitHub\AzureRM\ub-node
 
 $ResourceGroupName = 'AzureRM'
@@ -12,9 +12,8 @@ $StorageAccountName = "azurestoragez1"
 ./dsc/setup-nginx-proxy.ps1 -StorageAccountName $StorageAccountName 
 
 
-
 # Upload MOF File
-$Upload = @{
+$UploadMof = @{
 
     ResourceGroupName = $ResourceGroupName;    
     Location = $Location;
@@ -23,9 +22,20 @@ $Upload = @{
     File = "localhost.mof"
  };
 
-.\upload.ps1 @Upload
+.\upload-mof.ps1 @UploadMof
 
 
+# Upload Scripts
+$UploadScripts = @{
+
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = "mof"
+    File = "localhost.mof"
+ };
+
+.\upload-scripts.ps1 @UploadScripts
 
 
 #Create VM
