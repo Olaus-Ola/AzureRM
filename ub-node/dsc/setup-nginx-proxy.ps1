@@ -66,6 +66,3 @@ service nginx restart
         }
     }
 }
-
-#build MOF:
-WebProxy -OutputPath "mof"
