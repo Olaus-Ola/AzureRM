@@ -1,11 +1,11 @@
 Configuration WebProxy
 {     
-    Import-DscResource -Module nx   
     
 Param (
     [Parameter(Mandatory=$true)][string] $StorageAccountName
     )
 
+Import-DscResource -Module nx 
 
     Node webproxy {  
 
