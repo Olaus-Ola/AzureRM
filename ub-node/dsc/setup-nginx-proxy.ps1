@@ -25,7 +25,7 @@ Param (
         
         nxFile ProxyConf 
         {
-            SourcePath = "https://$StorageAccountName.blob.core.windows.net/config/nginx.conf"
+            SourcePath = "https://$using:StorageAccountName.blob.core.windows.net/config/nginx.conf"
             DestinationPath = '/etc/nginx/sites-available/proxy'
             DependsOn = '[nxPackage]Nginx'
         }  
