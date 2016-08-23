@@ -19,7 +19,7 @@ $UploadMof = @{
     Location = $Location;
     StorageAccountName = $StorageAccountName;
     ContainerName = "mof"
-    File = "localhost.mof"
+    File = "webproxy.mof"
  };
 
 .\upload-mof.ps1 @UploadMof
@@ -32,7 +32,7 @@ $UploadScripts = @{
     Location = $Location;
     StorageAccountName = $StorageAccountName;
     ContainerName = "mof"
-    File = "localhost.mof"
+    File = "webproxy.mof"
  };
 
 .\upload-scripts.ps1 @UploadScripts
