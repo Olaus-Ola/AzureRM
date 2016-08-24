@@ -3,7 +3,7 @@ Configuration CoreWeb
     
 Import-DscResource -Module nx 
 
-    Node webproxy {  
+    Node CoreWeb {  
 
         nxPackage GitHub  
         {  
@@ -17,29 +17,23 @@ Import-DscResource -Module nx
         {
        
             GetScript = @' 
-sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
+sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
 sudo apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893
 sudo apt-get update
-
-sudo apt-get install dotnet-dev-1.0.0-preview2-003121
 '@
 
             TestScript = @'
 #!/bin/bash
-if [ -e "/etc/nginx/sites-enabled/proxy" ]
-then
-    exit 0
-else 
-    exit 1
-fi
+exit 0
 '@
 
             SetScript = @'
 #!/bin/bash
-ln -s /etc/nginx/sites-available/proxy /etc/nginx/sites-enabled
-service nginx restart
+exit 0
 '@
 
-    }
-}
+        }
+        
+     }
+
 }
