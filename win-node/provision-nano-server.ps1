@@ -12,7 +12,7 @@ $StorageAccountName = "azurestoragez1"
 
 $i = 1
 For ($i=1; $i -lt 2; $i++) {
-  $VitualMachine = @{
+  $VirtualMachine = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
        VaultName = $VaultName;
@@ -24,7 +24,7 @@ For ($i=1; $i -lt 2; $i++) {
        VmSize = "Standard_D1_v2";
        };
 
-    . .\..\base\build-win-nano.ps1 @VitualMachine;
+    . .\..\base\build-win-nano.ps1 @VirtualMachine;
 
 }
 
