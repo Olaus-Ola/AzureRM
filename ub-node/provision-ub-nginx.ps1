@@ -24,6 +24,22 @@ $UploadMof = @{
 
 .\upload-mof.ps1 @UploadMof
 
+
+#Upload Scripts
+$UploadScripts = @{
+
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = ".\config\nginx"
+};
+
+.\upload-scripts.ps1 @UploadScripts
+
+
+
+
+
 $i = 1
 For ($i=9; $i -lt 10; $i++) {
 
