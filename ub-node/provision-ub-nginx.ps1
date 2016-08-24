@@ -19,30 +19,15 @@ $UploadMof = @{
     Location = $Location;
     StorageAccountName = $StorageAccountName;
     ContainerName = "mof"
-    File = "webproxy.mof"
+    File = "./mof/webproxy.mof"
  };
 
 .\upload-mof.ps1 @UploadMof
 
-
-# Upload Scripts
-$UploadScripts = @{
-
-    ResourceGroupName = $ResourceGroupName;    
-    Location = $Location;
-    StorageAccountName = $StorageAccountName;
-    ContainerName = "mof"
-    File = "webproxy.mof"
- };
-
-.\upload-scripts.ps1 @UploadScripts
-
-
-#Create VM
-$i = 9
+$i = 1
 For ($i=9; $i -lt 10; $i++) {
 
-    $VitualMachine = @{
+    $VirtualMachine = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
        StorageAccountName = $StorageAccountName;
@@ -53,11 +38,9 @@ For ($i=9; $i -lt 10; $i++) {
        VmSize = "Standard_D1_v2"
        };
 
-   .  .\..\base\build-ub.ps1 @VitualMachine;
+   .  .\..\base\build-ub.ps1 @VirtualMachine;
 
 }
-
-
 
 #Apply DSC Extension
 $DSC = @{
