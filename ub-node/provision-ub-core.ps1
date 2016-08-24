@@ -10,6 +10,30 @@ $SubNetIndex = 2
 $StorageAccountName = "azurestoragez1"
 
 
+#Create MOF File
+. ./dsc/setup-core-web.ps1 coreweb -Output ./mof
+
+
+# Upload MOF File
+$UploadMof = @{
+
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = "mof"
+    File = "./mof/coreweb.mof"
+ };
+
+.\upload-mof.ps1 @UploadMof
+
+
+
+
+
+
+
+
+
 $i = 1
 For ($i=1; $i -lt 2; $i++) {
 

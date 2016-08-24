@@ -3,7 +3,7 @@ Configuration CoreWeb
     
 Import-DscResource -Module nx 
 
-    Node CoreWeb {  
+    Node coreweb {  
 
         nxPackage GitHub  
         {  
