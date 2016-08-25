@@ -14,7 +14,7 @@ Param
 
     [Parameter(Mandatory=$true)]
     [String] 
-    $ContainerName = 'ub-node',
+    $ContainerName,
     
     [Parameter(Mandatory=$true)]
     [String] 
@@ -22,8 +22,7 @@ Param
 
 )
 
-$currentLocation = "$PathToContent\$ContainerName"
-Set-Location $currentLocation
+$currentLocation = Set-Location $PathToContent
 
 $relativePath = @()
 foreach ($file in (Get-ChildItem $currentLocation -Recurse -File)) {
@@ -38,11 +37,11 @@ foreach ($dir in (Get-ChildItem $currentLocation -Recurse -Directory)) {
 $stKey = (Get-AzureRMStorageAccountKey -StorageAccountName $StorageAccountName -ResourceGroupName $ResourceGroupName).value[0]
 $blobContext = New-AzureStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $stKey
 
-New-AzureStorageContainer -Name $containerName -Context $blobContext
+if (!(Get-AzureStorageContainer -Name $containerName -ResourceGroupName $ResourceGroupName)) {
+    New-AzureStorageContainer -Name $containerName -Context $blobContext
+}
 
 foreach ($rFile in $relativePath) {
     $blobName = $rFile.TrimStart('.\')
     Set-AzureStorageBlobContent -Container $containerName -File $rFile -Context $blobContext -Blob $blobName
 }
-
-
