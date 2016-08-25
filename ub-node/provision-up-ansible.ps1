@@ -26,6 +26,20 @@ $UploadMof = @{
 . ..\util\upload-mof.ps1 @UploadMof 
 
 
+#Upload Scripts
+$UploadScripts = @{
+
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = "ansible"
+    PathToContent =".\config\ansible" 
+};
+. ..\util\upload-scripts.ps1 @UploadScripts
+
+
+
+
 $i = 5
 For ($i=5; $i -lt 7; $i++) {
 

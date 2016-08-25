@@ -35,8 +35,7 @@ $UploadScripts = @{
     ContainerName = "nginx"
     PathToContent =".\config\nginx" 
 };
-
-.\upload-scripts.ps1 @UploadScripts
+. ..\util\upload-scripts.ps1 @UploadScripts
 
 
 

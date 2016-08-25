@@ -27,6 +27,18 @@ $UploadMof = @{
 . ..\util\upload-mof.ps1 @UploadMof 
 
 
+#Upload Scripts
+$UploadScripts = @{
+
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = "core-web"
+    PathToContent =".\config\coreweb" 
+};
+. ..\util\upload-scripts.ps1 @UploadScripts
+
+
 
 
 
