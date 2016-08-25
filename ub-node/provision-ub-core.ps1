@@ -11,7 +11,8 @@ $StorageAccountName = "azurestoragez1"
 
 
 #Create MOF File
-. ./dsc/setup-core-web.ps1 coreweb -Output ./mof
+. ./dsc/setup-core-web.ps1 
+CoreWeb -Output ./mof
 
 
 # Upload MOF File
@@ -23,12 +24,7 @@ $UploadMof = @{
     ContainerName = "mof"
     File = "./mof/coreweb.mof"
  };
-
-.\upload-mof.ps1 @UploadMof
-
-
-
-
+. ..\util\upload-mof.ps1 @UploadMof 
 
 
 

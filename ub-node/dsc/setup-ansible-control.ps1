@@ -2,7 +2,7 @@ Configuration AnsibleControl
 {     
     Import-DscResource -Module nx   
     
-    Node localhost {  
+    Node ansiblecontrol {  
 
         nxPackage Nginx  
         {  
@@ -13,6 +13,3 @@ Configuration AnsibleControl
     }
 
 }
-
-#build MOF:
-WebProxy -OutputPath "../mof"

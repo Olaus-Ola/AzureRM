@@ -12,6 +12,7 @@ $StorageAccountName = "azurestoragez1"
 . ./dsc/setup-nginx-proxy.ps1
 Webproxy -StorageAccountName $StorageAccountName -Output ./mof
 
+
 # Upload MOF File
 $UploadMof = @{
 
@@ -21,8 +22,8 @@ $UploadMof = @{
     ContainerName = "mof"
     File = "./mof/webproxy.mof"
  };
+. ..\util\upload-mof.ps1 @UploadMof 
 
-.\upload-mof.ps1 @UploadMof
 
 
 #Upload Scripts

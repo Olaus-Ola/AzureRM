@@ -9,6 +9,22 @@ $SubNetIndex = 2
 
 $StorageAccountName = "azurestoragez1"
 
+#Create MOF File
+. ./dsc/setup-ansible-control.ps1
+AnsibleControl  -Output ./mof
+
+
+# Upload MOF File
+$UploadMof = @{
+
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = "mof"
+    File = "./mof/ansiblecontrol.mof"
+ };
+. ..\util\upload-mof.ps1 @UploadMof 
+
 
 $i = 5
 For ($i=5; $i -lt 7; $i++) {
