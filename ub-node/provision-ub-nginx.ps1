@@ -31,7 +31,8 @@ $UploadScripts = @{
     ResourceGroupName = $ResourceGroupName;    
     Location = $Location;
     StorageAccountName = $StorageAccountName;
-    ContainerName = ".\config\nginx"
+    ContainerName = "nginx"
+    PathToContent =".\config\nginx" 
 };
 
 .\upload-scripts.ps1 @UploadScripts
