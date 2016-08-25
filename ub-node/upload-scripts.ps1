@@ -45,3 +45,5 @@ foreach ($rFile in $relativePath) {
     $blobName = $rFile.TrimStart('.\')
     Set-AzureStorageBlobContent -Container $containerName -File $rFile -Context $blobContext -Blob $blobName
 }
+
+Set-Location ..\..
