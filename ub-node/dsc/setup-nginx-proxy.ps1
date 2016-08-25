@@ -25,7 +25,7 @@ Import-DscResource -Module nx
         
         nxFile ProxyConf 
         {
-            SourcePath = "https://" + $StorageAccountName + ".blob.core.windows.net/config/nginx.conf"
+            SourcePath = "https://" + $StorageAccountName + ".blob.core.windows.net/nginx/nginx.conf"
             DestinationPath = '/etc/nginx/sites-available/proxy'
             DependsOn = '[nxPackage]Nginx'
         }  
