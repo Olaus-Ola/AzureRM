@@ -32,7 +32,7 @@ foreach ($file in (Get-ChildItem $currentLocation -Recurse -File)) {
 $stKey = (Get-AzureRMStorageAccountKey -StorageAccountName $StorageAccountName -ResourceGroupName $ResourceGroupName).value[0]
 $blobContext = New-AzureStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $stKey
 
-if (!(Get-AzureStorageContainer -Name $containerName -Context $blobContext)) {
+if (!(Get-AzureStorageContainer -Name $containerName -Context $blobContext -ea 0)) {
     New-AzureStorageContainer -Name $containerName -Context $blobContext
 }
 
