@@ -38,9 +38,6 @@ $UploadScripts = @{
 . ..\util\upload-scripts.ps1 @UploadScripts
 
 
-
-
-
 $i = 1
 For ($i=9; $i -lt 10; $i++) {
 
@@ -59,6 +56,8 @@ For ($i=9; $i -lt 10; $i++) {
 
 }
 
+
+
 #Apply DSC Extension
 $DSC = @{
 
@@ -66,8 +65,8 @@ $DSC = @{
     Location = $Location;
     StorageAccountName = $StorageAccountName;
     ContainerName = "mof"
-    MOFfile = "localhost.mof"
+    MOFfile = "webproxy.mof"
     VmName = "ub-nginx-proxy-9"
  };
 
- .\extension-ub.ps1 @DSC
+ .\Install-mof.ps1 @DSC

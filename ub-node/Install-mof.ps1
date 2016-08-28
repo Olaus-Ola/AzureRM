@@ -1,6 +1,38 @@
-$rg = Get-AzureRmResourceGroup 'put_name_here'
-$st = Get-AzureRmStorageAccount -ResourceGroupName $rg.ResourceGroupName
-$stKey = (Get-AzureRMStorageAccountKey -StorageAccountName $st.StorageAccountName -ResourceGroupName $rg.ResourceGroupName).value[0]
+Param
+(
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $ResourceGroupName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $StorageAccountNamee,
+
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $ContainerName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $MOFfile,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $VmName
+)
+
+
+$storageAccountKey = (Get-AzureRMStorageAccountKey -StorageAccountName $StorageAccountName -ResourceGroupName $ResourceGroupName).value[0]
+
+
+
+
+
+
+
+
+
 
 $mofname = 'put_mof_name_here'
 $configurationpath = 'put_.ps1_path_here'
@@ -13,6 +45,8 @@ $location = 'putlocationhere'
 $extensionName = 'DSCForLinux'
 $publisher = 'Microsoft.OSTCExtensions'
 $version = '2.0'
+
+
 
 $privateConfig = @"
 {{
@@ -27,6 +61,7 @@ $publicConfig = @"
   "FileUri": "{0}"
 }}
 "@ -f $mofpath
+
 
 Set-AzureRmVMExtension -Publisher $publisher -ResourceGroupName $rgName -VMName $vmName `
  -ExtensionType $extensionName -Location $location -TypeHandlerVersion $version `
