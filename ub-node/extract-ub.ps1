@@ -21,10 +21,6 @@ Param
 
     [Parameter(Mandatory=$true)]
     [String] 
-    $MOFfile,
-
-    [Parameter(Mandatory=$true)]
-    [String] 
     $VmName,
 
     [Parameter(Mandatory=$true)]

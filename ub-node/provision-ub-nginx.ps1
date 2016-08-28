@@ -85,8 +85,10 @@ $BaseImage = @{
     ContainerName = "vm-images"
     VmName = "ub-nginx-proxy-1"
     NicName ="ub-nginx-proxy-nic-1"
-    VhdNamePrefix = ""
+    VhdNamePrefix = "ub-nginx-2016-08-28"
 
  };
 
  .\extract-ub.ps1 @BaseImage 
+
+
