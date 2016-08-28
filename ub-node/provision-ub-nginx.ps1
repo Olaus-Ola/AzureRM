@@ -2,7 +2,6 @@ Login-AzureRMAccount
 Set-Location C:\Users\sshay\Documents\GitHub\AzureRM\ub-node
 
 $ResourceGroupName = 'AzureRM'
-$Location = 'East US 2'
 $VnetName = "AzureRmVNet"
 $SubNetIndex = 2
 
@@ -39,7 +38,7 @@ $UploadScripts = @{
 
 
 $i = 1
-For ($i=9; $i -lt 10; $i++) {
+For ($i=1; $i -lt 2; $i++) {
 
     $VirtualMachine = @{
        ResourceGroupName = $ResourceGroupName;
@@ -59,14 +58,15 @@ For ($i=9; $i -lt 10; $i++) {
 
 
 #Apply DSC Extension
+#Use Basic ansiblecontrol.mof as Test
 $DSC = @{
 
     ResourceGroupName = $ResourceGroupName;    
     Location = $Location;
     StorageAccountName = $StorageAccountName;
     ContainerName = "mof"
-    MOFfile = "webproxy.mof"
-    VmName = "ub-nginx-proxy-9"
+    MOFfile = "ansiblecontrol.mof"
+    VmName = "ub-nginx-proxy-1"
  };
 
  .\Install-mof.ps1 @DSC

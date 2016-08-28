@@ -58,7 +58,7 @@ $publicConfig = @"
 "@ -f $fileUri 
 
 
-Set-AzureRmVMExtension -ResourceGroupName $ResourceGroupName -VMName $VmName -Location $Location `
+ansiblecontrolSet-AzureRmVMExtension -ResourceGroupName $ResourceGroupName -VMName $VmName -Location $Location `
                        -Name $extensionName -Publisher $publisher -ExtensionType $extensionName `
                        -TypeHandlerVersion $version -SettingString $publicConfig -ProtectedSettingString $privateConfig
 
