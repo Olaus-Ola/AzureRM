@@ -70,3 +70,23 @@ $DSC = @{
  };
 
  .\Install-mof.ps1 @DSC
+
+
+#  ********* Manual Step/Test Machine *************** 
+# Verify and Run waagent on Host
+# Manually Add IP and Login
+
+ #Extract-Base Image
+$BaseImage = @{
+
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = "vm-images"
+    VmName = "ub-nginx-proxy-1"
+    NicName ="ub-nginx-proxy-nic-1"
+    VhdNamePrefix = ""
+
+ };
+
+ .\extract-ub.ps1 @BaseImage 

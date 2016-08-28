@@ -1,26 +1,56 @@
-Login-AzureRMAccount
+Param
+(
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $ResourceGroupName,
 
-$ResourceGroupName = 'AzureRM'
-$StorageAccountName = "azurestoragez1"
 
-$i = 0
-$vmName = 'ub-client-'+ $i
-$nicName = 'ub-client-nic-' + $i
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $Location,
+
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $StorageAccountName,
+
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $ContainerName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $MOFfile,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $VmName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $NicName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $VhdNamePrefix
+)
+
+
 $diskName = $vmName + '-os-disk.vhd';
-
-$vhdNamePrefix = 'ub-16.04.0-lts-16-07-13'
 $path = $vhdNamePrefix + ".json"
 
-# Verify and Run waagent on Host
 
 #Linux Server 
 Stop-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $vmName
 Set-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $vmName -Generalized
-Save-AzureRmVMImage -ResourceGroupName $ResourceGroupName -Name $vmName -DestinationContainerName "vm-images" -VHDNamePrefix $vhdNamePrefix -Path $path
+Save-AzureRmVMImage -ResourceGroupName $ResourceGroupName -Name $vmName -DestinationContainerName $ContainerName -VHDNamePrefix $VhdNamePrefix -Path $path
+
+
 
 # Remove Resources
 Remove-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $vmName
-Remove-AzureRmNetworkInterface -Name $nicName -ResourceGroupName $ResourceGroupName -Force 
+Remove-AzureRmNetworkInterface -Name $NicName -ResourceGroupName $ResourceGroupName -Force 
 
 
 #Remove VHD Disk
