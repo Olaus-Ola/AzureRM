@@ -4,9 +4,15 @@ Param
     [String] 
     $ResourceGroupName,
 
+
     [Parameter(Mandatory=$true)]
     [String] 
-    $StorageAccountNamee,
+    $Location,
+
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $StorageAccountName,
 
 
     [Parameter(Mandatory=$true)]
@@ -24,47 +30,48 @@ Param
 
 )
 
-
-$storageAccountKey = (Get-AzureRMStorageAccountKey -StorageAccountName $StorageAccountName -ResourceGroupName $ResourceGroupName).value[0]
-
-
-
-
-
-
-
-
-
-
-$mofname = 'put_mof_name_here'
-$configurationpath = 'put_.ps1_path_here'
-
-$mofpath = $StorageAccount | Publish-AzureRmVMDscConfiguration -ConfigurationPath $configurationpath
-
-$rgName = $rg.ResourceGroupName
-$vmName = $vm.Name
-$location = 'putlocationhere'
 $extensionName = 'DSCForLinux'
 $publisher = 'Microsoft.OSTCExtensions'
 $version = '2.0'
 
 
+$storageAccountKey = (Get-AzureRMStorageAccountKey -StorageAccountName $StorageAccountName -ResourceGroupName $ResourceGroupName).value[0]
+write-output("storageAccountKey: " + $storageAccountKey)
 
 $privateConfig = @"
 {{
 	"StorageAccountName": "{0}",
 	"StorageAccountKey": "{1}"
 }}
-"@ -f $st.StorageAccountName,$stKey
+"@ -f $StorageAccountName,$storageAccountKey
 
-$publicConfig = @"
+
+$fileUri = "http://azurestoragez1.blob.core.windows.net/mof/localhost.mof";
+write-output($fileUri)
+
+
+$privateConfig = @"
 {{
-  "Mode": "Install",
-  "FileUri": "{0}"
+	"Mode": "Push",
+	"FileUri": "{0}"
 }}
-"@ -f $mofpath
+"@ -f $fileUri 
 
 
-Set-AzureRmVMExtension -Publisher $publisher -ResourceGroupName $rgName -VMName $vmName `
- -ExtensionType $extensionName -Location $location -TypeHandlerVersion $version `
- -SettingString $publicConfig -ProtectedSettingString $privateConfig -Name $mofname -ForceRerun $true
+
+#Set-AzureRmVMExtension -ResourceGroupName $ResourceGroupName -VMName $VmName -Location $Location `
+ #                      -Name $extensionName -Publisher $publisher -ExtensionType $extensionName `
+  #                     -TypeHandlerVersion $version -SettingString $publicConfig -ProtectedSettingString $privateConfig
+
+
+
+
+
+
+
+
+
+
+
+
+
