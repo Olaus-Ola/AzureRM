@@ -18,24 +18,24 @@ CoreWeb -Output ./mof
 # Upload MOF File
 $UploadMof = @{
 
-    ResourceGroupName = $ResourceGroupName;    
-    Location = $Location;
-    StorageAccountName = $StorageAccountName;
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+    StorageAccountName = $StorageAccountName
     ContainerName = "mof"
     File = "./mof/coreweb.mof"
- };
+ }
 . ..\util\upload-mof.ps1 @UploadMof 
 
 
 #Upload Scripts
 $UploadScripts = @{
 
-    ResourceGroupName = $ResourceGroupName;    
-    Location = $Location;
-    StorageAccountName = $StorageAccountName;
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+    StorageAccountName = $StorageAccountName
     ContainerName = "core-web"
     PathToContent =".\config\coreweb" 
-};
+}
 . ..\util\upload-scripts.ps1 @UploadScripts
 
 
@@ -45,7 +45,7 @@ $UploadScripts = @{
 $i = 1
 For ($i=1; $i -lt 2; $i++) {
 
-    $VitualMachine = @{
+    $VirtualMachine = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
        StorageAccountName = $StorageAccountName;
@@ -56,7 +56,7 @@ For ($i=1; $i -lt 2; $i++) {
        VmSize = "Standard_D1_v2"
        };
 
-   .  .\..\base\build-ub.ps1 @VitualMachine;
+   .  .\..\base\build-ub.ps1 @VirtualMachine;
 
 }
 

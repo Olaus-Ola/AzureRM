@@ -2,7 +2,6 @@ Login-AzureRMAccount
 Set-Location C:\Users\sshay\Documents\GitHub\AzureRM\ub-node
 
 $ResourceGroupName = 'AzureRM'
-$Location = 'East US 2'
 $VnetName = "AzureRmVNet"
 $SubNetIndex = 2
 
@@ -38,11 +37,8 @@ $UploadScripts = @{
 . ..\util\upload-scripts.ps1 @UploadScripts
 
 
-
-
-
 $i = 1
-For ($i=9; $i -lt 10; $i++) {
+For ($i=1; $i -lt 2; $i++) {
 
     $VirtualMachine = @{
        ResourceGroupName = $ResourceGroupName;
@@ -59,15 +55,40 @@ For ($i=9; $i -lt 10; $i++) {
 
 }
 
+
+
 #Apply DSC Extension
+#Use Basic ansiblecontrol.mof as Test
 $DSC = @{
 
     ResourceGroupName = $ResourceGroupName;    
     Location = $Location;
     StorageAccountName = $StorageAccountName;
     ContainerName = "mof"
-    MOFfile = "localhost.mof"
-    VmName = "ub-nginx-proxy-9"
+    MOFfile = "ansiblecontrol.mof"
+    VmName = "ub-nginx-proxy-1"
  };
 
- .\extension-ub.ps1 @DSC
+ .\Install-mof.ps1 @DSC
+
+
+#  ********* Manual Step/Test Machine *************** 
+# Verify and Run waagent on Host
+# Manually Add IP and Login
+
+ #Extract-Base Image
+$BaseImage = @{
+
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = "vm-images"
+    VmName = "ub-nginx-proxy-1"
+    NicName ="ub-nginx-proxy-nic-1"
+    VhdNamePrefix = "ub-nginx-2016-08-28"
+
+ };
+
+ .\extract-ub.ps1 @BaseImage 
+
+
