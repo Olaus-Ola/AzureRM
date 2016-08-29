@@ -45,7 +45,7 @@ $UploadScripts = @{
 $i = 1
 For ($i=1; $i -lt 2; $i++) {
 
-    $VitualMachine = @{
+    $VirtualMachine = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
        StorageAccountName = $StorageAccountName;
@@ -56,7 +56,7 @@ For ($i=1; $i -lt 2; $i++) {
        VmSize = "Standard_D1_v2"
        };
 
-   .  .\..\base\build-ub.ps1 @VitualMachine;
+   .  .\..\base\build-ub.ps1 @VirtualMachine;
 
 }
 
