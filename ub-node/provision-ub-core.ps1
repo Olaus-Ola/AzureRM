@@ -18,24 +18,24 @@ CoreWeb -Output ./mof
 # Upload MOF File
 $UploadMof = @{
 
-    ResourceGroupName = $ResourceGroupName;    
-    Location = $Location;
-    StorageAccountName = $StorageAccountName;
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+    StorageAccountName = $StorageAccountName
     ContainerName = "mof"
     File = "./mof/coreweb.mof"
- };
+ }
 . ..\util\upload-mof.ps1 @UploadMof 
 
 
 #Upload Scripts
 $UploadScripts = @{
 
-    ResourceGroupName = $ResourceGroupName;    
-    Location = $Location;
-    StorageAccountName = $StorageAccountName;
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+    StorageAccountName = $StorageAccountName
     ContainerName = "core-web"
     PathToContent =".\config\coreweb" 
-};
+}
 . ..\util\upload-scripts.ps1 @UploadScripts
 
 
