@@ -5,7 +5,7 @@ $ResourceGroupName = 'AzureRM'
 $VnetName = "AzureRmVNet"
 $SubNetIndex = 2
 
-$StorageAccountName = "azurestoragez1"
+$StorageAccountName = "azurestoragez12"
 
 
 #Create MOF File
@@ -19,7 +19,7 @@ $UploadMof = @{
     Location = $Location
     StorageAccountName = $StorageAccountName
     ContainerName = "mof"
-    File = "./mof/webproxy.mof"
+    File = "./mof/localhost.mof"
  }
 . ..\util\upload-mof.ps1 @UploadMof 
 
@@ -61,7 +61,7 @@ $DSC = @{
     Location = $Location
     StorageAccountName = $StorageAccountName
     ContainerName = "mof"
-    MOFfile = "webproxy.mof"
+    MOFfile = "localhost.mof"
     VmName = "ub-nginx-proxy-1"
  }
  .\Install-mof.ps1 @DSC
