@@ -51,11 +51,12 @@ write-output("VnetName:" + $vnet.Name.ToString())
 $storageAccount = Get-AzureRmStorageAccount -ResourceGroupName $ResourceGroupName -Name $StorageAccountName
 write-output("StorageAccountName:" + $StorageAccountName + "Id:" + $storageAccount.Id) 
 
+# Pip
+$ipName = "$VmName-IP"
+$pip = New-AzureRmPublicIpAddress -Name $ipName -ResourceGroupName $ResourceGroupName -Location $Location -AllocationMethod Dynamic 
 
 # Nic
-$nic = New-AzureRmNetworkInterface -ResourceGroupName $ResourceGroupName `
-                                   -Name $NicName  -Subnet $vnet.Subnets[$SubnetIndex] -Location $Location 
-
+$nic = New-AzureRmNetworkInterface -ResourceGroupName $ResourceGroupName -Subnet $vnet.Subnets[$SubnetIndex] -Location $Location -PublicIpAddress $pip -Name $NicName
 
 # VM Disk
 $diskName = $VmName + "-os-disk"
@@ -68,16 +69,15 @@ $sku = "16.04.0-LTS";
 $version = "latest";
 
 
-#### Pubplisher Image
+#### Publisher Image
 $vm = New-AzureRmVMConfig -VMName $VmName -VMSize $VmSize |
 Set-AzureRmVMOperatingSystem  -Linux -ComputerName $VmName -Credential $cred  |
 Set-AzureRmVMSourceImage  -PublisherName $publisher -Offer $offer -Skus $sku -Version $version  |
 Set-AzureRmVMOSDisk  -Name $diskName -VhdUri $osDiskUri -Caching ReadWrite -CreateOption fromImage |
 Add-AzureRmVMNetworkInterface  -Id $nic.Id;
- 
 
 ### VHD Images
-##Set-AzureRmVMOSDisk  -Name $diskName -VhdUri $osDiskUri -Caching ReadWrite -CreateOption fromImage -SourceImageUri $BaseImage -Linux |
+## Set-AzureRmVMOSDisk  -Name $diskName -VhdUri $osDiskUri -Caching ReadWrite -CreateOption fromImage -SourceImageUri $BaseImage -Linux |
 ## Add-AzureRmVMNetworkInterface  -Id $nic.Id;} 
 
 
