@@ -1,9 +1,9 @@
 Configuration CoreWeb
 {     
     
-Import-DscResource -Module nx 
+    Import-DscResource -Module nx
 
-    Node coreweb {  
+    Node localhost {  
 
         nxPackage GitHub  
         {  
@@ -11,7 +11,6 @@ Import-DscResource -Module nx
             Name            = "git"
             PackageManager  = "apt"
         } 
-
 
         nxScript Install-NetCore
         {
@@ -34,7 +33,5 @@ sudo apt-get update
 '@
 
         }
-        
-     }
-
+    }
 }

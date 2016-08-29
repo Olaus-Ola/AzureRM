@@ -24,7 +24,6 @@ Param
     [String] 
     $VmSize,
 
-
     [Parameter(Mandatory=$true)]
     [String] 
     $VmName,
@@ -32,7 +31,6 @@ Param
     [Parameter(Mandatory=$true)]
     [String] 
     $NicName,
-
 
     [Parameter(Mandatory=$false)]
     [String] 
