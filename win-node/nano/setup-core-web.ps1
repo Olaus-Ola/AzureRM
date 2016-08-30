@@ -28,6 +28,7 @@ Import-PackageProvider NanoServerPackage
 Install-NanoServerPackage -Name Microsoft-NanoServer-Storage-Package
 Install-NanoServerPackage -Name Microsoft-NanoServer-IIS-Package
 
+# This is optional, can instead modify web.config
 $oldPath=(Get-ItemProperty -Path ‘HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\’ -Name PATH).Path
 $newPath=$oldPath+’;C:\dotnet\’
 Set-ItemProperty -Path ‘HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\’ -Name PATH –Value $newPath
