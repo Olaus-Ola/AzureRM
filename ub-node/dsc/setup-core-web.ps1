@@ -12,6 +12,14 @@ Configuration CoreWeb
             PackageManager  = "apt"
         } 
 
+        nxPackage Tree  
+        {  
+            Ensure          = "Present"
+            Name            = "tree"
+            PackageManager  = "apt"
+        } 
+
+
         nxScript Install-NetCore
         {
        

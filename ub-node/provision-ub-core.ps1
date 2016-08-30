@@ -38,7 +38,7 @@ $UploadScripts = @{
 }
 . ..\util\upload-scripts.ps1 @UploadScripts
 
-
+#Build VM
 $i = 0
 For ($i=0; $i -lt 1; $i++) {
 
@@ -72,4 +72,19 @@ $DSC = @{
 
 #  ********* Manual Step/Test Machine *************** 
 # Manually Add IP and Login
-# Verify and Run waagent on Host
+# Verify and Run waagent on Host >sudo waagent -deprovision+user
+
+ #Extract-Base Image
+$BaseImage = @{
+
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = "vm-images"
+    VmName = "ub-coreweb-0"
+    NicName ="ub-coreweb-nic-0"
+    VhdNamePrefix = "ub-coreweb-2016-08-30"
+
+ };
+
+ .\extract-ub.ps1 @BaseImage 
