@@ -1,6 +1,4 @@
 <#
-Enter-PSSession $ip -Credential $cred
-
 # Remote event log
 Enable-NetFirewallRule -DisplayName "Windows Management Instrumentation (DCOM-In)"
 Enable-NetFirewallRule -DisplayName "Remote Event Log Management (RPC)"
