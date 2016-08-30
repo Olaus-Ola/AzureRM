@@ -30,10 +30,10 @@ $StorageAccountName = "azurestoragez1"
 
 
 # Build Base Image 
-$i = 30
-For ($i=30; $i -lt 32; $i++) {
+$i = 0
+For ($i=0; $i -lt 1; $i++) {
   
-  $VitualMachine = @{
+  $VirtualMachine  = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
        StorageAccountName = $StorageAccountName;
@@ -44,15 +44,14 @@ For ($i=30; $i -lt 32; $i++) {
        VmSize = "Standard_D2_v2";
        };
 
-    . .\..\base\build-win-server.ps1 @VitualMachine;
+    . .\..\base\build-win-server.ps1 @VirtualMachine;
 }
 
 
 
 #Apply DSC Configuration
-
-$i = 30
-For ($i=30; $i -lt 32; $i++) {
+$i = 0
+For ($i=0; $i -lt 1; $i++) {
 
  #Need to Fix Parameters Below
 
