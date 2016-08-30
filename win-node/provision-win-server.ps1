@@ -24,7 +24,7 @@ $StorageAccountName = "azurestoragez1"
   # Versión = 2.20 (Latest)
   # Allow minor versión updates true
 
-  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-iis-web.ps1 -OutputArchivePath ".\setup-iis-web.ps1.zip" -Force 
+  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-iis-web.ps1 -OutputArchivePath ".\dsc\setup-iis-web.ps1.zip" -Force 
   
 #endregion
 
@@ -48,12 +48,9 @@ For ($i=0; $i -lt 1; $i++) {
 }
 
 
-
 #Apply DSC Configuration
 $i = 0
 For ($i=0; $i -lt 1; $i++) {
-
- #Need to Fix Parameters Below
 
  $achiveblobName = 'setup-iis-web.zip';
 
@@ -64,7 +61,24 @@ For ($i=0; $i -lt 1; $i++) {
 
 }
 
+#Extract-Base Image & Generalize
+
+# Manually Log into machine and Test Functionality
+# cd %windir%\system32\sysprep
+# sysprep /generalize /shutdown /oobe
 
 
+$BaseImage = @{
 
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = "vm-images"
+    VmName = "win-server-0"
+    NicName ="win-server-nic-0"
+    VhdNamePrefix = "win-server-coreweb-2016-08-30"
+
+ };
+
+ .\extract-win.ps1 @BaseImage 
 

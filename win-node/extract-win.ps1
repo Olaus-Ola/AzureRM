@@ -1,12 +1,39 @@
-Login-AzureRMAccount
+Param
+(
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $ResourceGroupName,
 
-$ResourceGroupName = 'AzureRM'
 
-$vmName = 'win-server-1'
-$nicName = $vmName + "nic";
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $Location,
 
-$vhdNamePrefix = 'win-2012-R2-Datacenter-16-07-13'
-$path = $vhdNamePrefix + ".json"
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $StorageAccountName,
+
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $ContainerName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $VmName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $NicName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $VhdNamePrefix
+)
+
+
+$path = $VhdNamePrefix + ".json"
 
 #Windows Server - after sysprep
 Stop-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $vmName
