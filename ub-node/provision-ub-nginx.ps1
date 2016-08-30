@@ -4,8 +4,8 @@ Set-Location C:\Users\sshay\Documents\GitHub\AzureRM\ub-node
 $ResourceGroupName = 'AzureRM'
 $VnetName = "AzureRmVNet"
 $SubNetIndex = 2
-
-$StorageAccountName = "azurestoragez12"
+$Location = 'East US 2'
+$StorageAccountName = "azurestoragez1"
 
 
 #Create MOF File
@@ -35,8 +35,8 @@ $UploadScripts = @{
 . ..\util\upload-scripts.ps1 @UploadScripts
 
 
-$i = 1
-For ($i=1; $i -lt 2; $i++) {
+$i = 0
+For ($i=0; $i -lt 1; $i++) {
 
     $VirtualMachine = @{
        ResourceGroupName = $ResourceGroupName
@@ -55,21 +55,21 @@ For ($i=1; $i -lt 2; $i++) {
 
 
 #Apply DSC Extension
-#Use Basic ansiblecontrol.mof as Test
 $DSC = @{
     ResourceGroupName = $ResourceGroupName
     Location = $Location
     StorageAccountName = $StorageAccountName
     ContainerName = "mof"
     MOFfile = "localhost.mof"
-    VmName = "ub-nginx-proxy-1"
+    VmName = "ub-nginx-proxy-0"
  }
  .\Install-mof.ps1 @DSC
 
 
 #  ********* Manual Step/Test Machine *************** 
-# Verify and Run waagent on Host
 # Manually Add IP and Login
+# Verify and Run waagent on Host
+
 
  #Extract-Base Image
 $BaseImage = @{
@@ -78,9 +78,9 @@ $BaseImage = @{
     Location = $Location;
     StorageAccountName = $StorageAccountName;
     ContainerName = "vm-images"
-    VmName = "ub-nginx-proxy-1"
-    NicName ="ub-nginx-proxy-nic-1"
-    VhdNamePrefix = "ub-nginx-2016-08-28"
+    VmName = "ub-nginx-proxy-0"
+    NicName ="ub-nginx-proxy-nic-0"
+    VhdNamePrefix = "ub-nginx-2016-08-30"
 
  };
 

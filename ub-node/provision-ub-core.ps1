@@ -22,7 +22,7 @@ $UploadMof = @{
     Location = $Location
     StorageAccountName = $StorageAccountName
     ContainerName = "mof"
-    File = "./mof/coreweb.mof"
+    File = "./mof/localhost.mof"
  }
 . ..\util\upload-mof.ps1 @UploadMof 
 
@@ -39,11 +39,8 @@ $UploadScripts = @{
 . ..\util\upload-scripts.ps1 @UploadScripts
 
 
-
-
-
-$i = 1
-For ($i=1; $i -lt 2; $i++) {
+$i = 0
+For ($i=0; $i -lt 1; $i++) {
 
     $VirtualMachine = @{
        ResourceGroupName = $ResourceGroupName;
@@ -60,3 +57,19 @@ For ($i=1; $i -lt 2; $i++) {
 
 }
 
+#Apply DSC Extension
+$DSC = @{
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+    StorageAccountName = $StorageAccountName
+    ContainerName = "mof"
+    MOFfile = "localhost.mof"
+    VmName = "ub-coreweb-0"
+ }
+ .\Install-mof.ps1 @DSC
+
+
+
+#  ********* Manual Step/Test Machine *************** 
+# Manually Add IP and Login
+# Verify and Run waagent on Host
