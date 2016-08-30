@@ -1,10 +1,22 @@
 <#
-Enter-PSSession 192.168.1.15 -Credential $cred
+Enter-PSSession $ip -Credential $cred
 
+# Remote event log
 Enable-NetFirewallRule -DisplayName "Windows Management Instrumentation (DCOM-In)"
 Enable-NetFirewallRule -DisplayName "Remote Event Log Management (RPC)"
 Enable-NetFirewallRule -DisplayName "Remote Event Log Management (RPC-EPMAP)"
 Enable-NetFirewallRule -DisplayName "Remote Event Log Management (NP-In)"
+
+# Remote server manager
+Enable-NetFirewallRule -DisplayName "Remote Service Management (NP-In)"
+Enable-NetFirewallRule -DisplayName "Remote Service Management (RPC)"
+Enable-NetFirewallRule -DisplayName "Remote Service Management (RPC-EPMAP)"
+Enable-NetFirewallRule -DisplayName "Remote Event Log Management (NP-In)"
+Enable-NetFirewallRule -DisplayName "Remote Event Log Management (RPC)"
+Enable-NetFirewallRule -DisplayName "Remote Event Log Management (RPC-EPMAP)"
+Enable-NetFirewallRule -DisplayName "Windows Firewall Remote Management (RPC)"
+Enable-NetFirewallRule -DisplayName "Windows Firewall Remote Management (RPC-EPMAP)"
+
 #>
 
 #region Basic Stuff
