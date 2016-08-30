@@ -7,7 +7,7 @@ Param (
 
 Import-DscResource -Module nx 
 
-    Node webproxy {  
+    Node localhost {  
 
         nxPackage Nginx  
         {  

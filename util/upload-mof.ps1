@@ -12,7 +12,6 @@ Param
     [String] 
     $StorageAccountName,
 
-
     [Parameter(Mandatory=$true)]
     [String] 
     $ContainerName,
@@ -29,7 +28,9 @@ $StorageContext = New-AzureStorageContext -StorageAccountName $StorageAccountNam
 write-output("Storage Account Name: " + $StorageAccountName)
 write-output("Primary StorageKey: " + $storageAccountKey)
 
-New-AzureStorageContainer -Name $containerName -Context $blobContext
+if (!(Get-AzureStorageContainer -Name $containerName -Context $StorageContext -ea 0)) {
+    New-AzureStorageContainer -Name $containerName -Context $StorageContext
+}
 
 $UploadFile = @{
     Context = $StorageContext; 

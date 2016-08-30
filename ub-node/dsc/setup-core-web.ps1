@@ -1,9 +1,9 @@
 Configuration CoreWeb
 {     
     
-Import-DscResource -Module nx 
+    Import-DscResource -Module nx
 
-    Node coreweb {  
+    Node localhost {  
 
         nxPackage GitHub  
         {  
@@ -12,28 +12,26 @@ Import-DscResource -Module nx
             PackageManager  = "apt"
         } 
 
-
         nxScript Install-NetCore
         {
        
             GetScript = @' 
+#!/bin/bash
+exit 0
+'@
+
+            TestScript = @'
+#!/bin/bash
+exit 1
+'@
+
+            SetScript = @'
+#!/bin/bash
 sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
 sudo apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893
 sudo apt-get update
 '@
 
-            TestScript = @'
-#!/bin/bash
-exit 0
-'@
-
-            SetScript = @'
-#!/bin/bash
-exit 0
-'@
-
         }
-        
-     }
-
+    }
 }
