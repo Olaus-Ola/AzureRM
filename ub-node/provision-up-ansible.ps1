@@ -58,6 +58,37 @@ For ($i=0; $i -lt 1; $i++) {
 }
 
 
+#Apply DSC Extension
+$DSC = @{
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+    StorageAccountName = $StorageAccountName
+    ContainerName = "mof"
+    MOFfile = "localhost.mof"
+    VmName = "ub-ansible-0"
+ }
+ .\Install-mof.ps1 @DSC
+
+
+
+#  ********* Manual Step/Test Machine *************** 
+# Manually Add IP and Login
+# Verify and Run waagent on Host >sudo waagent -deprovision+user
+
+ #Extract-Base Image
+$BaseImage = @{
+
+    ResourceGroupName = $ResourceGroupName;    
+    Location = $Location;
+    StorageAccountName = $StorageAccountName;
+    ContainerName = "vm-images"
+    VmName = "ub-ansible-0"
+    NicName ="ub-ansible-nic-0"
+    VhdNamePrefix = "ub-ansible-2016-08-31"
+
+ };
+
+ .\extract-ub.ps1 @BaseImage 
 
 
 
