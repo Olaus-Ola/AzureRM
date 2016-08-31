@@ -21,7 +21,7 @@ $UploadMof = @{
     Location = $Location;
     StorageAccountName = $StorageAccountName;
     ContainerName = "mof"
-    File = "./mof/ansiblecontrol.mof"
+      File = "./mof/localhost.mof"
  };
 . ..\util\upload-mof.ps1 @UploadMof 
 
@@ -38,12 +38,11 @@ $UploadScripts = @{
 . ..\util\upload-scripts.ps1 @UploadScripts
 
 
+#Build VM
+$i = 0
+For ($i=0; $i -lt 1; $i++) {
 
-
-$i = 5
-For ($i=5; $i -lt 7; $i++) {
-
-    $VitualMachine = @{
+    $VirtualMachine = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
        StorageAccountName = $StorageAccountName;
@@ -54,7 +53,7 @@ For ($i=5; $i -lt 7; $i++) {
        VmSize = "Standard_D1_v2"
        };
 
-   .  .\..\base\build-ub.ps1 @VitualMachine;
+   .  .\..\base\build-ub.ps1 @VirtualMachine;
 
 }
 

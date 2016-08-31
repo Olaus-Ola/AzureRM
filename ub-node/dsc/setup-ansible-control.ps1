@@ -2,12 +2,12 @@ Configuration AnsibleControl
 {     
     Import-DscResource -Module nx   
     
-    Node ansiblecontrol {  
+    Node localhost {  
 
-        nxPackage Nginx  
+        nxPackage Tree  
         {  
             Ensure          = "Present"
-            Name            = "httpd"
+            Name            = "tree"
             PackageManager  = "apt"
         } 
     }
