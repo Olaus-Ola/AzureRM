@@ -22,7 +22,7 @@ Param
 
 )
 
-$vm = Get-AzureRmVM -ResourceGroupName $ResourceGroupNamep -Name $VmName
+$vm = Get-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $VmName
 
 $VhdUri = "https://STORAGEACCOUNTNAME.blob.core.windows.net/vhds/VMNAME-data-disk-DISKNAME.vhd"
 $VhdUri = $VhdUri.Replace("STORAGEACCOUNTNAME", $StorageAccountName)
