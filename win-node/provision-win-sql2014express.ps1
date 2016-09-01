@@ -42,14 +42,21 @@ For ($i=10; $i -lt 13; $i++) {
 }
 
 
+
+
+$i = 21
 #Install Secondary Data Disk
     $DataDisk  = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
        StorageAccountName = $StorageAccountName;
        VmName = "win-sql-$i";
+       DiskName = "1A"
        };
    ..\util\add-data-disk.ps1 @DataDisk 
+
+
+
 
 
 
