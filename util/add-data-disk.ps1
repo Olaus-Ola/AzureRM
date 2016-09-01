@@ -10,16 +10,24 @@ Param
 
     [Parameter(Mandatory=$true)]
     [String] 
-    $VmName
-    
+    $VmName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $StorageAccountName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $DiskName
+
 )
 
 $vm = Get-AzureRmVM -ResourceGroupName $ResourceGroupNamep -Name $VmName
-$diskName = $VmName + "data-disk"
 
-
-### THIS NEEDS TO BE CHANGED
-$VhdUri = "https://azurestoragez1.blob.core.windows.net/vhds/" + $VmName  + "-data.vhd"
+$VhdUri = "https://STORAGEACCOUNTNAME.blob.core.windows.net/vhds/VMNAME-data-disk-DISKNAME.vhd"
+$VhdUri = $VhdUri.Replace("STORAGEACCOUNTNAME", $StorageAccountName)
+$VhdUri = $VhdUri.Replace("VMNAME", $VmName)
+$VhdUri = $VhdUri.Replace("DISKNAME", $DiskName)
 
 
 Add-AzureRmVMDataDisk -VM $vm -Name $diskName -VhdUri $VhdUri `
