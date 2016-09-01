@@ -41,6 +41,22 @@ For ($i=10; $i -lt 13; $i++) {
     . .\..\base\build-win-server.ps1 @VirtualMachine;
 }
 
+
+#Install Secondary Data Disk
+    $DataDisk  = @{
+       ResourceGroupName = $ResourceGroupName;
+       Location = $Location;
+       StorageAccountName = $StorageAccountName;
+       VmName = "win-sql-$i";
+       };
+   ..\util\add-data-disk.ps1 @DataDisk 
+
+
+
+
+
+
+
 #Apply DSC Configuration
   # FILE TO UPLOAD: setup-sql-2014express.ps1.zip
   # Module-Qualified Name of Configuration - setup-sql-2014express.ps1\payload
@@ -51,16 +67,12 @@ For ($i=10; $i -lt 13; $i++) {
 
 
 
-
-
-
-
 $i = 0
 For ($i=0; $i -lt 1; $i++) {
 
  $achiveblobName = 'setup-iis-web.zip';
 
- Set-AzureRmVMDSCExtension -ResourceGroupName $ResourceGroupName -VMName  win-server-$i -Version '2.8' `
+ Set-AzureRmVMDSCExtension -ResourceGroupName $ResourceGroupName -VMName  win-sql-nic-$i -Version '2.8' `
                               -ArchiveBlobName $achiveblobName `
                               -ArchiveStorageAccountName $StorageAccountName `
                               -ConfigurationName "ConfigureWeb" -AutoUpdate
