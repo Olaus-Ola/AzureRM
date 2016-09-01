@@ -13,19 +13,19 @@ $StorageAccountName = "azurestoragez1"
 #region Publish DSC Image 
   
   # Azure Blob Storage 
-  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-iis-web.ps1 `
+  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014express.ps1 `
                                     -ResourceGroupName $ResourceGroupName -StorageAccountName $storageAccountName -Force 
 
 
   #Local File System
-  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-iis-web.ps1 -OutputArchivePath "mof\setup-iis-web.ps1.zip" -Force 
+  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014express.ps1 -OutputArchivePath "mof\setup-sql-2014express.ps1.zip" -Force 
   
 #endregion
 
 
 # Build Base Image 
-$i = 0
-For ($i=0; $i -lt 1; $i++) {
+$i = 10
+For ($i=10; $i -lt 13; $i++) {
   
   $VirtualMachine  = @{
        ResourceGroupName = $ResourceGroupName;
@@ -33,21 +33,27 @@ For ($i=0; $i -lt 1; $i++) {
        StorageAccountName = $StorageAccountName;
        VnetName = $VnetName;
        SubnetIndex = $SubnetIndex;
-       VmName = "win-server-$i";
-       NicName = "win-server-nic-$i";
+       VmName = "win-sql-$i";
+       NicName = "win-sql-nic-$i";
        VmSize = "Standard_D2_v2";
        };
 
     . .\..\base\build-win-server.ps1 @VirtualMachine;
 }
 
-
 #Apply DSC Configuration
-  # FILE TO UPLOAD: setup-iis-web.ps1.zip
-  # Module-Qualified Name of Configuration - setup-iis-web.ps1\payload
+  # FILE TO UPLOAD: setup-sql-2014express.ps1.zip
+  # Module-Qualified Name of Configuration - setup-sql-2014express.ps1\payload
   # Configuration Arguments - nodeName=localhost
   # Versión = 2.20 (Latest)
   # Allow minor versión updates true
+
+
+
+
+
+
+
 
 $i = 0
 For ($i=0; $i -lt 1; $i++) {
