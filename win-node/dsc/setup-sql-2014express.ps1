@@ -6,7 +6,7 @@ Configuration Payload
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName @{ModuleName="xPSDesiredStateConfiguration"; ModuleVersion="3.13.0.0 "}
+    Import-DscResource -ModuleName @{ModuleName="xPSDesiredStateConfiguration"; ModuleVersion="3.13.0.0"}
     Import-DscResource -ModuleName @{ModuleName="cChoco"; ModuleVersion="2.1.1.54"}
     Import-DscResource -ModuleName @{ModuleName="xDatabase"; ModuleVersion="1.4.0.0"}
 
