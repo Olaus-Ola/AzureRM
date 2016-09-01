@@ -6,6 +6,7 @@ Configuration Payload
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
+    Import-DscResource -ModuleName @{ModuleName="xPSDesiredStateConfiguration"; ModuleVersion="3.13.0.0 "}
     Import-DscResource -ModuleName @{ModuleName="cChoco"; ModuleVersion="2.1.1.54"}
     Import-DscResource -ModuleName @{ModuleName="xDatabase"; ModuleVersion="1.4.0.0"}
 
@@ -45,8 +46,29 @@ Configuration Payload
             Ensure = "Present"    
         }
 
+        xRemoteFile DacPacPackage
+        {  
+             Uri             = "https://github.com/stuartshay/CoreDataStore/raw/master/data/SQLDataTier/NycLandmarks.dacpac"
+             DestinationPath = "c:\Setup\NycLandmarks.dacpac"
+             DependsOn       = "[File]SetupDir"
+        } 
+        
+        xRemoteFile BacPacPackage
+        {  
+             Uri             = "https://github.com/stuartshay/CoreDataStore/raw/master/data/SQLDataTier/NycLandmarks.bacpac"
+             DestinationPath = "c:\Setup\NycLandmarks.bacpac"
+             DependsOn       = "[File]SetupDir"
+        }
 
+        xRemoteFile SQLServerPackage
+        {  
+             Uri             = "https://azurestoragez1.blob.core.windows.net/software/DownloadTestFile.txt"
+             DestinationPath = "c:\Setup\DownloadTestFile.txt"
+             DependsOn       = "[File]SetupDir"
+        }
         
          
+
+
     }
 } 
