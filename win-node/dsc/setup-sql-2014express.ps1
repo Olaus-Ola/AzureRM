@@ -1,14 +1,19 @@
 Configuration Payload
 {
-    
     Param (
-    [Parameter(Mandatory=$false)][string] $nodeName
+    [Parameter(Mandatory=$false)][string] $nodeName,
+
+    [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$DatabaseName,
+
+    [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$SqlServerVersion,
+
+    [PSCredential]$Credentials
+
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName @{ModuleName="xPSDesiredStateConfiguration"; ModuleVersion="3.13.0.0"}
-    Import-DscResource -ModuleName @{ModuleName="cChoco"; ModuleVersion="2.1.1.54"}
-    Import-DscResource -ModuleName @{ModuleName="xDatabase"; ModuleVersion="1.4.0.0"}
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration
+    Import-DscResource -ModuleName xDatabase
 
     Node $nodeName
     {
@@ -16,28 +21,12 @@ Configuration Payload
         {
             RebootNodeIfNeeded = $true
         }
-         
-        File ChocoDir
+
+        WindowsFeature "Framework 3.5"
         {
-            Type = 'Directory'
-            DestinationPath = 'c:\choco'
-            Ensure = "Present"    
+            Name = "NET-Framework-Core"
+            Ensure = "Present"
         }
-
-
-        cChocoInstaller InstallChoco
-        {
-            InstallDir = "c:\choco"
-            DependsOn = "[File]ChocoDir"
-        }
-
-
-        cChocoPackageInstaller installGit
-        {
-         Name = "git.install"
-         DependsOn = "[cChocoInstaller]InstallChoco"
-        }
-
 
         File SetupDir
         {
@@ -66,9 +55,26 @@ Configuration Payload
              DestinationPath = "c:\Setup\DownloadTestFile.txt"
              DependsOn       = "[File]SetupDir"
         }
-        
-         
 
-
+        xDatabase DeployBacPac
+        {
+            Ensure = "Present"
+            SqlServer = $nodeName
+            SqlServerVersion = $SqlServerVersion
+            DatabaseName = $DatabaseName
+            Credentials = $Credentials
+            BacPacPath = "c:\Setup\NycLandmarks.bacpac"
+        }
     }
-} 
+}
+
+$cd = @{
+    AllNodes = @(
+        @{
+            NodeName = 'localhost'
+            PSDscAllowPlainTextPassword = $true
+        }
+    )
+}
+
+$cred = Get-Credential -UserName sa -Message "Password please"
