@@ -27,7 +27,9 @@ Param
     [String] 
     $NicName,
 
+
     [Parameter(Mandatory=$true)]
+    [ValidatePattern(“^[^_\W][\w-._]{0,23}(?<![-.])$”)]
     [String] 
     $VhdNamePrefix
 )
