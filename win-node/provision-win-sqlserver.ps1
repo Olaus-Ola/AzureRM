@@ -54,22 +54,12 @@ $i = 22
    ..\util\add-data-disk.ps1 @DataDisk 
 
 
-
-
-
-
-
-
-
-
 #Apply DSC Configuration
-  # FILE TO UPLOAD: setup-sql-2014express.ps1.zip
-  # Module-Qualified Name of Configuration - setup-sql-2014express.ps1\payload
+  # FILE TO UPLOAD: setup-sql- prerequisite.ps1
+  # Module-Qualified Name of Configuration - setup-sql- prerequisite.ps1\payload
   # Configuration Arguments - nodeName=localhost
   # Versión = 2.20 (Latest)
   # Allow minor versión updates true
-
-
 
 
 $i = 0
