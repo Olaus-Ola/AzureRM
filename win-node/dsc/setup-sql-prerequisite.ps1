@@ -4,8 +4,10 @@ Configuration Payload
     [Parameter(Mandatory=$false)][string] $nodeName,
 
     [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$DatabaseName,
-
     [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$SqlServerVersion,
+    
+    [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$DownloadUri,
+    [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$DownloadPath,
 
     [PSCredential]$Credentials
 
@@ -53,8 +55,8 @@ Configuration Payload
        
         xRemoteFile SQLServerPackage
         {  
-             Uri             = "https://azurestoragez1.blob.core.windows.net/software/DownloadTestFile.txt"
-             DestinationPath = "c:\Setup\DownloadTestFile.txt"
+             Uri             = $DownloadUri
+             DestinationPath = $DownloadPath
              DependsOn       = "[File]SetupDir"
         }
 
