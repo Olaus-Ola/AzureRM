@@ -35,20 +35,7 @@ Configuration Payload
             Ensure = "Present"    
         }
 
-        xRemoteFile DacPacPackage
-        {  
-             Uri             = "https://github.com/stuartshay/CoreDataStore/raw/master/data/SQLDataTier/NycLandmarks.dacpac"
-             DestinationPath = "c:\Setup\NycLandmarks.dacpac"
-             DependsOn       = "[File]SetupDir"
-        } 
-        
-        xRemoteFile BacPacPackage
-        {  
-             Uri             = "https://github.com/stuartshay/CoreDataStore/raw/master/data/SQLDataTier/NycLandmarks.bacpac"
-             DestinationPath = "c:\Setup\NycLandmarks.bacpac"
-             DependsOn       = "[File]SetupDir"
-        }
-
+       
         xRemoteFile SQLServerPackage
         {  
              Uri             = "https://azurestoragez1.blob.core.windows.net/software/DownloadTestFile.txt"
@@ -56,25 +43,7 @@ Configuration Payload
              DependsOn       = "[File]SetupDir"
         }
 
-        xDatabase DeployBacPac
-        {
-            Ensure = "Present"
-            SqlServer = $nodeName
-            SqlServerVersion = $SqlServerVersion
-            DatabaseName = $DatabaseName
-            Credentials = $Credentials
-            BacPacPath = "c:\Setup\NycLandmarks.bacpac"
-        }
     }
 }
 
-$cd = @{
-    AllNodes = @(
-        @{
-            NodeName = 'localhost'
-            PSDscAllowPlainTextPassword = $true
-        }
-    )
-}
 
-$cred = Get-Credential -UserName sa -Message "Password please"

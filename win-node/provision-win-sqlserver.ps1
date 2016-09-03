@@ -42,9 +42,7 @@ For ($i=10; $i -lt 13; $i++) {
 }
 
 
-
-
-$i = 21
+$i = 22
 #Install Secondary Data Disk
     $DataDisk  = @{
        ResourceGroupName = $ResourceGroupName;
