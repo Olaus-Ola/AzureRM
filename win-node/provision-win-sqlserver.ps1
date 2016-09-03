@@ -1,7 +1,6 @@
 Login-AzureRMAccount
 Set-Location C:\Users\sshay\Documents\GitHub\AzureRM\win-node
 
-
 $ResourceGroupName = 'AzureRM'
 $Location = 'East US 2'
 $VnetName = "AzureRmVNet"
@@ -9,23 +8,9 @@ $SubNetIndex = 2
 
 $StorageAccountName = "azurestoragez1"
 
-
-#region Publish DSC Image 
-  
-  # Azure Blob Storage 
-  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014express.ps1 `
-                                    -ResourceGroupName $ResourceGroupName -StorageAccountName $storageAccountName -Force 
-
-
-  #Local File System
-  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014express.ps1 -OutputArchivePath "mof\setup-sql-2014express.ps1.zip" -Force 
-  
-#endregion
-
-
 # Build Base Image 
-$i = 10
-For ($i=10; $i -lt 13; $i++) {
+$i = 30
+For ($i=30; $i -lt 31; $i++) {
   
   $VirtualMachine  = @{
        ResourceGroupName = $ResourceGroupName;
@@ -49,9 +34,23 @@ $i = 22
        Location = $Location;
        StorageAccountName = $StorageAccountName;
        VmName = "win-sql-$i";
-       DiskName = "1A"
+       DiskName = "win-sql-$i-data01" 
        };
    ..\util\add-data-disk.ps1 @DataDisk 
+
+
+
+#region Publish DSC Image 
+  
+  # Azure Blob Storage 
+  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014express.ps1 `
+                                    -ResourceGroupName $ResourceGroupName -StorageAccountName $storageAccountName -Force 
+
+
+  #Local File System
+  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014express.ps1 -OutputArchivePath "mof\setup-sql-2014express.ps1.zip" -Force 
+  
+#endregion
 
 
 #Apply DSC Configuration
@@ -60,6 +59,7 @@ $i = 22
   # Configuration Arguments - nodeName=localhost
   # Versión = 2.20 (Latest)
   # Allow minor versión updates true
+
 
 
 $i = 0
