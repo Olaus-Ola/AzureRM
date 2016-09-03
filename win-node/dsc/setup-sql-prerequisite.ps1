@@ -14,12 +14,27 @@ Configuration Payload
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName xDatabase
+    Import-DscResource -ModuleName xStorage
 
     Node $nodeName
     {
         LocalConfigurationManager
         {
             RebootNodeIfNeeded = $true
+        }
+
+        xWaitforDisk Disk2
+        {
+             DiskNumber = 1
+             RetryIntervalSec = 60
+             RetryCount = 60
+        }
+
+        xDisk DataVolume
+        {
+             DiskNumber = 1
+             DriveLetter = 'D'
+             AllocationUnitSize = 64kb
         }
 
         WindowsFeature "Framework 3.5"
