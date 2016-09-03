@@ -52,8 +52,9 @@ $DSC = @{
     ContainerName = "mofsql"
     MOFfile = "localhost.mof"
     VmName = "win-sql-30"
+    Platform = "Windows"
  }
- .\Install-mof.ps1 @DSC
+ ..\util\Install-mof.ps1 @DSC
  
 <# Not needed
 #region Publish DSC Image 

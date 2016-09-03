@@ -62,8 +62,9 @@ $DSC = @{
     ContainerName = "mof"
     MOFfile = "localhost.mof"
     VmName = "ub-nginx-proxy-0"
+    Platform = "Linux"
  }
- .\Install-mof.ps1 @DSC
+..\util\Install-mof.ps1 @DSC
 
 
 #  ********* Manual Step/Test Machine *************** 

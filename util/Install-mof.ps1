@@ -22,13 +22,24 @@ Param
 
     [Parameter(Mandatory=$true)]
     [String] 
-    $VmName
+    $VmName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $Platform
 
 )
 
-$extensionName = 'DSCForLinux'
-$publisher = 'Microsoft.OSTCExtensions'
-$version = '2.0'
+if ($Platform -eq 'Windows') {
+    $extensionName = 'DSC'
+    $publisher = 'Microsoft.PowerShell'
+    $version = '2.20'
+}
+else {
+    $extensionName = 'DSCForLinux'
+    $publisher = 'Microsoft.OSTCExtensions'
+    $version = '2.0'
+}
 
 $storageAccountKey = (Get-AzureRMStorageAccountKey -StorageAccountName $StorageAccountName -ResourceGroupName $ResourceGroupName).value[0]
 write-output("storageAccountKey: " + $storageAccountKey)
@@ -40,7 +51,7 @@ $privateConfig = @"
 }}
 "@ -f $StorageAccountName,$storageAccountKey
 
-$fileUri = "http://$StorageAccountName.blob.core.windows.net/mof/$MOFfile";
+$fileUri = "http://$StorageAccountName.blob.core.windows.net/$containerName/$MOFfile";
 write-output($fileUri)
 
 $publicConfig = @"
