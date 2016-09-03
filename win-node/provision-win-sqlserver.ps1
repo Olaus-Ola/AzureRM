@@ -27,6 +27,7 @@ For ($i=30; $i -lt 31; $i++) {
 }
 
 #Install Secondary Data Disk
+#$i = 22
     $DataDisk  = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
