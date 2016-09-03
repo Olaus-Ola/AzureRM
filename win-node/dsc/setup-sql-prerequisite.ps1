@@ -14,6 +14,7 @@ Configuration Payload
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
+
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName xDatabase
     Import-DscResource -ModuleName xStorage

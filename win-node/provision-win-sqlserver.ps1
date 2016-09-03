@@ -43,12 +43,12 @@ $i = 22
 #region Publish DSC Image 
   
   # Azure Blob Storage 
-  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014express.ps1 `
+  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-prerequisite.ps1 `
                                     -ResourceGroupName $ResourceGroupName -StorageAccountName $storageAccountName -Force 
 
 
   #Local File System
-  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014express.ps1 -OutputArchivePath "mof\setup-sql-2014express.ps1.zip" -Force 
+  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-prerequisite.ps1 -OutputArchivePath "mof\setup-sql-prerequisite.ps1.zip" -Force 
   
 #endregion
 
