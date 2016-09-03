@@ -3,11 +3,10 @@ Configuration Payload
     Param (
     [Parameter(Mandatory=$false)][string] $nodeName,
 
-    [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$DatabaseName,
+ 
     [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$SqlServerVersion,
-    
     [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$DownloadUri,
-    [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$DownloadPath,
+ 
 
     [PSCredential]$Credentials
 
@@ -16,7 +15,7 @@ Configuration Payload
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
-    Import-DscResource -ModuleName xDatabase
+
     Import-DscResource -ModuleName xStorage
 
     Node $nodeName
@@ -57,7 +56,7 @@ Configuration Payload
         xRemoteFile SQLServerPackage
         {  
              Uri             = $DownloadUri
-             DestinationPath = $DownloadPath
+             DestinationPath = 'c:\Setup'
              DependsOn       = "[File]SetupDir"
         }
 
