@@ -26,8 +26,6 @@ For ($i=30; $i -lt 31; $i++) {
     . .\..\base\build-win-server.ps1 @VirtualMachine;
 }
 
-
-$i = 22
 #Install Secondary Data Disk
     $DataDisk  = @{
        ResourceGroupName = $ResourceGroupName;
@@ -38,8 +36,26 @@ $i = 22
        };
    ..\util\add-data-disk.ps1 @DataDisk 
 
+$UploadMof = @{
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+    StorageAccountName = $StorageAccountName
+    ContainerName = "mofsql"
+    File = "./mof/Payload/localhost.mof"
+ }
+. ..\util\upload-mof.ps1 @UploadMof
 
-
+$DSC = @{
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+    StorageAccountName = $StorageAccountName
+    ContainerName = "mofsql"
+    MOFfile = "localhost.mof"
+    VmName = "win-sql-30"
+ }
+ .\Install-mof.ps1 @DSC
+ 
+<# Not needed
 #region Publish DSC Image 
   
   # Azure Blob Storage 
@@ -57,8 +73,8 @@ $i = 22
   # FILE TO UPLOAD: setup-sql- prerequisite.ps1
   # Module-Qualified Name of Configuration - setup-sql- prerequisite.ps1\payload
   # Configuration Arguments - nodeName=localhost
-  # Versión = 2.20 (Latest)
-  # Allow minor versión updates true
+  # VersiÃ³n = 2.20 (Latest)
+  # Allow minor versiÃ³n updates true
 
 
 
@@ -73,7 +89,7 @@ For ($i=0; $i -lt 1; $i++) {
                               -ConfigurationName "ConfigureWeb" -AutoUpdate
 
 }
-
+#>
 
 #Extract-Base Image & Generalize
 
