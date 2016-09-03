@@ -32,14 +32,14 @@ http://ttyplus.com/multi-tabbed-putty/
 
 This Script will setup the Resource Group and Networking Foundation.   
 
-|   			|   			  |
+|   		       	|   			        |
 |---------------|-----------------|
 |Resource Group |AzureRM          |
 |Network        |192.168.0.0/16   |
 
 
 ##### Subnets
-|Subnet 		   | Network Range   | Index |
+|Subnet 		       | Network Range   | Index |
 |:-----------------|-----------------|:-----:|
 |FrontEnd          |192.168.1.0/24   |0      |
 |BackEnd           |192.168.2.0/24   |1      |
@@ -69,9 +69,9 @@ In a Powershell Admin Console add the necessary DSC Modules
 
 ````
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted 
-Install-Module -Name  cChoco, xDatabase, xNetworking, xPSDesiredStateConfiguration, xWebAdministration
+Install-Module -Name  cChoco, xDatabase, xNetworking, xPSDesiredStateConfiguration, xWebAdministration, xStorage
 
-Update-Module -Name cChoco, xDatabase, xNetworking, xPSDesiredStateConfiguration, xWebAdministration
+Update-Module -Name cChoco, xDatabase, xNetworking, xPSDesiredStateConfiguration, xWebAdministration, xStorage
 ````
 
 Linux Modules        
