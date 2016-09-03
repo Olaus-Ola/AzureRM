@@ -2,21 +2,14 @@ Configuration Payload
 {
     Param (
     [Parameter(Mandatory=$false)][string] $nodeName,
-
- 
-    [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$SqlServerVersion,
-    [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$DownloadUri,
- 
-
-    [PSCredential]$Credentials
+    #[Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$SqlServerVersion,
+    [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$DownloadUri
 
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration
-
-    Import-DscResource -ModuleName xStorage
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 3.13.0.0
+    Import-DscResource -ModuleName xStorage -ModuleVersion 2.6.0.0
 
     Node $nodeName
     {
@@ -59,8 +52,5 @@ Configuration Payload
              DestinationPath = 'c:\Setup'
              DependsOn       = "[File]SetupDir"
         }
-
     }
 }
-
-
