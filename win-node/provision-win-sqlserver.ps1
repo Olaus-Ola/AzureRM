@@ -89,7 +89,7 @@ $BaseImage = @{
     StorageAccountName = $StorageAccountName;
     ContainerName = "vm-images"
     VmName = "win-sql-30"
-    NicName ="win-sql-30-nic-30"
+    NicName ="win-sql-nic-30"
     VhdNamePrefix = "win-sql-2016-2016-09-02"
 
  };
