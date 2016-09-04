@@ -1,14 +1,12 @@
 Login-AzureRMAccount
 Set-Location C:\Users\sshay\Documents\GitHub\AzureRM\win-node
 
-$ResourceGroupName = 'AzureRM'
-$Location = 'East US 2'
-$VnetName = "AzureRmVNet"
-$SubNetIndex = 2
+$ResourceGroupName = 'testvm'
+$Location = 'northeurope'
+$VnetName = "testvm-vnet"
+$SubNetIndex = 0
 
-$StorageAccountName = "azurestoragez1"
-
-
+$StorageAccountName = "testvm818"
 
 # Build Base Image 
 $i = 30
@@ -28,8 +26,6 @@ For ($i=30; $i -lt 31; $i++) {
     . .\..\base\build-win-server.ps1 @VirtualMachine;
 }
 
-
-
 #Install Secondary Data Disk
 $i = 30
     $DataDisk  = @{
@@ -41,85 +37,34 @@ $i = 30
        };
    ..\util\add-data-disk.ps1 @DataDisk 
 
-
-
-
-#Create Mof file
-
-  $downloalUri = "https://azurestoragez1.blob.core.windows.net/software/DownloadTestFile.txt"
-. ./dsc/setup-sql-prerequisite.ps1
-payload -nodename localhost -DownloadUri  $downloalUri -output ./mof
-
-
-
-
-
-
-
-
-#Upload MOF File
-$UploadMof = @{
-    ResourceGroupName = $ResourceGroupName
-    Location = $Location
-    StorageAccountName = $StorageAccountName
-    ContainerName = "mofsql"
-    File = "./mof/Payload/localhost.mof"
- }
-. ..\util\upload-mof.ps1 @UploadMof
-
-
-
-
-
-$DSC = @{
-    ResourceGroupName = $ResourceGroupName
-    Location = $Location
-    StorageAccountName = $StorageAccountName
-    ContainerName = "mofsql"
-    MOFfile = "localhost.mof"
-    VmName = "win-sql-30"
-    Platform = "Windows"
- }
- ..\util\Install-mof.ps1 @DSC
-
-
-
- 
-<# Not needed
 #region Publish DSC Image 
   
-  # Azure Blob Storage 
-  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-prerequisite.ps1 `
-                                    -ResourceGroupName $ResourceGroupName -StorageAccountName $storageAccountName -Force 
+# Azure Blob Storage 
+$downloadUri = Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-prerequisite.ps1 `
+                            -ResourceGroupName $ResourceGroupName -StorageAccountName $storageAccountName -Force 
 
+$i = 30
+For ($i=30; $i -lt 31; $i++) {
 
-  #Local File System
-  Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-prerequisite.ps1 -OutputArchivePath "mof\setup-sql-prerequisite.ps1.zip" -Force 
-  
+ $configurationArguments = @{"nodename"="localhost"; "downloaduri"= "$downloadUri" }
+ $achiveblobName = 'setup-sql-prerequisite.ps1.zip';
+
+Set-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName -VMName win-sql-$i -ArchiveBlobName $achiveblobName `
+    -ArchiveStorageAccountName $StorageAccountName -ConfigurationName "Payload" `
+    -ConfigurationArgument $configurationArguments -Version 2.20 -Force
+
+}
+
 #endregion
 
 
 #Apply DSC Configuration
   # FILE TO UPLOAD: setup-sql- prerequisite.ps1
   # Module-Qualified Name of Configuration - setup-sql- prerequisite.ps1\payload
-  # Configuration Arguments - nodeName=localhost
+  # Configuration Arguments - nodeName=localhost,downloadUri=
   # Versión = 2.20 (Latest)
   # Allow minor versión updates true
 
-
-
-$i = 0
-For ($i=0; $i -lt 1; $i++) {
-
- $achiveblobName = 'setup-iis-web.zip';
-
- Set-AzureRmVMDSCExtension -ResourceGroupName $ResourceGroupName -VMName  win-sql-nic-$i -Version '2.8' `
-                              -ArchiveBlobName $achiveblobName `
-                              -ArchiveStorageAccountName $StorageAccountName `
-                              -ConfigurationName "ConfigureWeb" -AutoUpdate
-
-}
-#>
 
 #Extract-Base Image & Generalize
 

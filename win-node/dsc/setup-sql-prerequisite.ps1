@@ -20,15 +20,15 @@ Configuration Payload
 
         xWaitforDisk Disk2
         {
-             DiskNumber = 1
+             DiskNumber = 2
              RetryIntervalSec = 60
              RetryCount = 60
         }
 
         xDisk DataVolume
         {
-             DiskNumber = 1
-             DriveLetter = 'D'
+             DiskNumber = 2
+             DriveLetter = 'Q'
              AllocationUnitSize = 64kb
         }
 
