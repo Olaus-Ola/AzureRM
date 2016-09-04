@@ -8,6 +8,8 @@ $SubNetIndex = 2
 
 $StorageAccountName = "azurestoragez1"
 
+
+
 # Build Base Image 
 $i = 30
 For ($i=30; $i -lt 31; $i++) {
@@ -26,8 +28,10 @@ For ($i=30; $i -lt 31; $i++) {
     . .\..\base\build-win-server.ps1 @VirtualMachine;
 }
 
+
+
 #Install Secondary Data Disk
-#$i = 22
+$i = 30
     $DataDisk  = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
@@ -37,6 +41,22 @@ For ($i=30; $i -lt 31; $i++) {
        };
    ..\util\add-data-disk.ps1 @DataDisk 
 
+
+
+
+#Create Mof file
+
+  $downloalUri = "https://azurestoragez1.blob.core.windows.net/software/DownloadTestFile.txt"
+. ./dsc/setup-sql-prerequisite.ps1 payload -nodename localhost -DownloadUri  $downloalUri -output ./mof
+
+
+
+
+
+
+
+
+#Upload MOF File
 $UploadMof = @{
     ResourceGroupName = $ResourceGroupName
     Location = $Location
@@ -45,6 +65,10 @@ $UploadMof = @{
     File = "./mof/Payload/localhost.mof"
  }
 . ..\util\upload-mof.ps1 @UploadMof
+
+
+
+
 
 $DSC = @{
     ResourceGroupName = $ResourceGroupName
@@ -56,6 +80,9 @@ $DSC = @{
     Platform = "Windows"
  }
  ..\util\Install-mof.ps1 @DSC
+
+
+
  
 <# Not needed
 #region Publish DSC Image 
