@@ -47,7 +47,8 @@ $i = 30
 #Create Mof file
 
   $downloalUri = "https://azurestoragez1.blob.core.windows.net/software/DownloadTestFile.txt"
-. ./dsc/setup-sql-prerequisite.ps1 payload -nodename localhost -DownloadUri  $downloalUri -output ./mof
+. ./dsc/setup-sql-prerequisite.ps1
+payload -nodename localhost -DownloadUri  $downloalUri -output ./mof
 
 
 
