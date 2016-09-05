@@ -2,7 +2,7 @@ Configuration Payload
 {
 
 Param (
-    [Parameter(Mandatory=$false)][string] $nodeName
+    [Parameter(Mandatory=$false)][string] $nodename
     )
 
 Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -11,7 +11,7 @@ Import-DscResource -ModuleName xWebAdministration
 Import-DscResource -ModuleName xNetworking
 
 
-Node $nodeName
+Node $nodename
 {
     LocalConfigurationManager 
     { 
