@@ -1,6 +1,6 @@
 
 
-## setup-sql-2016-prerequisite.ps1
+### setup-sql-2016-prerequisite.ps1
 
 ````
 setup-sql-2016-prerequisite.ps1\Payload
