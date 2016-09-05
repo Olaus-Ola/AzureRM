@@ -2,8 +2,7 @@ Configuration Payload
 {
     Param (
     [Parameter(Mandatory=$false)][string] $nodeName,
-    #[Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$SqlServerVersion,
-    [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$DownloadUri
+    [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$storageAccountName
 
     )
 
@@ -46,11 +45,12 @@ Configuration Payload
         }
 
        
-        xRemoteFile SQLServerPackage
+        xRemoteFile SQLServer2014Package
         {  
-             Uri             = $DownloadUri
-             DestinationPath = 'c:\Setup'
+             Uri             = "https://" + $storageAccountName + ".blob.core.windows.net/software/en_sql_server_2014_enterprise_edition_with_service_pack_2_x64_dvd_8962401.iso"
+             DestinationPath = 'c:\Setup\en_sql_server_2014_enterprise_edition_with_service_pack_2_x64_dvd_8962401.iso'
              DependsOn       = "[File]SetupDir"
         }
+
     }
 }
