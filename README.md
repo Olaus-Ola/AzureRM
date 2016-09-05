@@ -2,7 +2,7 @@
 
 ###Prerequisites
 
-Windows 8.1 and Below    
+Windows 2012R2 & 8.1 and Below    
 Windows Management Framework 5.0   
 https://www.microsoft.com/en-us/download/details.aspx?id=50395
 
