@@ -40,12 +40,20 @@ Configuration Payload
             Ensure = "Present"    
         }
 
-       
+
+        xRemoteFile SQLServer2016Package
+        {  
+             Uri             = "https://azurestoragez1.blob.core.windows.net/software/en_sql_server_2016_enterprise_x64_dvd_8701793.iso"
+             DestinationPath = 'c:\Setup\en_sql_server_2016_enterprise_x64_dvd_8701793.iso'
+             DependsOn       = "[File]SetupDir"
+        }
+
         xRemoteFile SQLServerMangementPackage
         {  
              Uri             = "http://go.microsoft.com/fwlink/?LinkID=824938"
              DestinationPath = 'c:\Setup\SSMS-Setup-ENU.exe'
         }
+
 
 
     }

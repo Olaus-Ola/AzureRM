@@ -11,8 +11,8 @@ $StorageAccountName = "azurestoragez1"
 
 
 # Build Base Image 
-$i = 85
-For ($i=85; $i -lt 86; $i++) {
+$i = 86
+For ($i=86; $i -lt 87; $i++) {
   
   $VirtualMachine  = @{
        ResourceGroupName = $ResourceGroupName;
@@ -30,7 +30,7 @@ For ($i=85; $i -lt 86; $i++) {
 
 
 #Install Secondary Data Disk
-$i = 85
+$i = 86
     $DataDisk  = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
@@ -39,6 +39,7 @@ $i = 85
        DiskName = "win-sql-$i-data01" 
        };
    ..\util\add-data-disk.ps1 @DataDisk 
+
 
 
 
@@ -78,7 +79,7 @@ Set-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName -VMName win-sql-
 
 #Apply DSC Configuration
   # FILE TO UPLOAD: setup-sql-prerequisite.ps1
-  # Module-Qualified Name of Configuration - setup-sql-prerequisite.ps1\payload
+  # Module-Qualified Name of Configuration - setup-sql-2016-prerequisite.ps1\payload
   # Configuration Arguments 
   # nodename=localhost,downloaduri=https://azurestoragez1.blob.core.windows.net/software/DownloadTestFile.txt
   # 
