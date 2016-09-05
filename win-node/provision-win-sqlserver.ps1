@@ -11,8 +11,8 @@ $StorageAccountName = "azurestoragez1"
 
 
 # Build Base Image 
-$i = 45
-For ($i=45; $i -lt 46; $i++) {
+$i = 46
+For ($i=46; $i -lt 47; $i++) {
   
   $VirtualMachine  = @{
        ResourceGroupName = $ResourceGroupName;
@@ -30,7 +30,7 @@ For ($i=45; $i -lt 46; $i++) {
 
 
 #Install Secondary Data Disk
-$i = 45
+$i = 46
     $DataDisk  = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
@@ -46,6 +46,10 @@ $i = 45
 #Local File System
 
 Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-prerequisite.ps1 -OutputArchivePath "mof\setup-sql-prerequisite.zip" -Force 
+
+# SQL 2016
+Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2016-prerequisite.ps1 -OutputArchivePath "mof\setup-sql-2016-prerequisite.zip" -Force 
+
 
 
 # Azure Blob Storage 
@@ -72,7 +76,10 @@ Set-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName -VMName win-sql-
 #Apply DSC Configuration
   # FILE TO UPLOAD: setup-sql-prerequisite.ps1
   # Module-Qualified Name of Configuration - setup-sql-prerequisite.ps1\payload
-  # Configuration Arguments - nodename=localhost,downloaduri=https://azurestoragez1.blob.core.windows.net/software/DownloadTestFile.txt
+  # Configuration Arguments 
+  # nodename=localhost,downloaduri=https://azurestoragez1.blob.core.windows.net/software/DownloadTestFile.txt
+  # 
+  #
   # Version = 2.20 (Latest)
   # Allow minor Version updates true
 
