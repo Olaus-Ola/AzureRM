@@ -43,13 +43,12 @@ $i = 87
 
 
 
-
-
 #region Publish DSC Image 
 
 #Local File System
 
-Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-prerequisite.ps1 -OutputArchivePath "mof\setup-sql-prerequisite.zip" -Force 
+# SQL 2014
+Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014-prerequisite.ps1 -OutputArchivePath "mof\setup-sql-2014-prerequisite.zip" -Force 
 
 # SQL 2016
 Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2016-prerequisite.ps1 -OutputArchivePath "mof\setup-sql-2016-prerequisite.zip" -Force 
