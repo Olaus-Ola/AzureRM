@@ -1,16 +1,18 @@
 Login-AzureRMAccount
 Set-Location C:\Users\sshay\Documents\GitHub\AzureRM\win-node
 
-$ResourceGroupName = 'testvm'
-$Location = 'northeurope'
-$VnetName = "testvm-vnet"
-$SubNetIndex = 0
+$ResourceGroupName = 'AzureRM'
+$Location = 'East US 2'
+$VnetName = "AzureRmVNet"
+$SubNetIndex = 2
 
-$StorageAccountName = "testvm818"
+$StorageAccountName = "azurestoragez1"
+
+
 
 # Build Base Image 
-$i = 30
-For ($i=30; $i -lt 31; $i++) {
+$i = 45
+For ($i=45; $i -lt 46; $i++) {
   
   $VirtualMachine  = @{
        ResourceGroupName = $ResourceGroupName;
@@ -26,8 +28,9 @@ For ($i=30; $i -lt 31; $i++) {
     . .\..\base\build-win-server.ps1 @VirtualMachine;
 }
 
+
 #Install Secondary Data Disk
-$i = 30
+$i = 45
     $DataDisk  = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
@@ -36,6 +39,15 @@ $i = 30
        DiskName = "win-sql-$i-data01" 
        };
    ..\util\add-data-disk.ps1 @DataDisk 
+
+
+
+
+
+
+
+
+
 
 #region Publish DSC Image 
   
