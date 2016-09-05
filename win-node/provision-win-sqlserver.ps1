@@ -41,16 +41,13 @@ $i = 45
    ..\util\add-data-disk.ps1 @DataDisk 
 
 
-
-
-
-
-
-
-
-
 #region Publish DSC Image 
-  
+
+#Local File System
+
+Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-prerequisite.ps1 -OutputArchivePath "mof\setup-sql-prerequisite.zip" -Force 
+
+
 # Azure Blob Storage 
 $downloadUri = Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-prerequisite.ps1 `
                             -ResourceGroupName $ResourceGroupName -StorageAccountName $storageAccountName -Force 
@@ -70,12 +67,14 @@ Set-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName -VMName win-sql-
 #endregion
 
 
+
+
 #Apply DSC Configuration
-  # FILE TO UPLOAD: setup-sql- prerequisite.ps1
-  # Module-Qualified Name of Configuration - setup-sql- prerequisite.ps1\payload
-  # Configuration Arguments - nodeName=localhost,downloadUri=
-  # Versión = 2.20 (Latest)
-  # Allow minor versión updates true
+  # FILE TO UPLOAD: setup-sql-prerequisite.ps1
+  # Module-Qualified Name of Configuration - setup-sql-prerequisite.ps1\payload
+  # Configuration Arguments - nodename=localhost,downloaduri=https://azurestoragez1.blob.core.windows.net/software/DownloadTestFile.txt
+  # Version = 2.20 (Latest)
+  # Allow minor Version updates true
 
 
 #Extract-Base Image & Generalize
@@ -83,6 +82,9 @@ Set-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName -VMName win-sql-
 # Manually Log into machine and Test Functionality
 # cd %windir%\system32\sysprep
 # sysprep /generalize /shutdown /oobe
+
+
+
 
 
 $BaseImage = @{
