@@ -27,7 +27,7 @@ Configuration Payload
         xDisk DataVolume
         {
              DiskNumber = 2
-             DriveLetter = 'Q'
+             DriveLetter = 'M'
              AllocationUnitSize = 64kb
         }
 
