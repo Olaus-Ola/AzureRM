@@ -11,8 +11,8 @@ $StorageAccountName = "azurestoragez1"
 
 
 # Build Base Image 
-$i = 47
-For ($i=47; $i -lt 48; $i++) {
+$i = 85
+For ($i=85; $i -lt 86; $i++) {
   
   $VirtualMachine  = @{
        ResourceGroupName = $ResourceGroupName;
@@ -30,7 +30,7 @@ For ($i=47; $i -lt 48; $i++) {
 
 
 #Install Secondary Data Disk
-$i = 47
+$i = 85
     $DataDisk  = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
@@ -39,6 +39,7 @@ $i = 47
        DiskName = "win-sql-$i-data01" 
        };
    ..\util\add-data-disk.ps1 @DataDisk 
+
 
 
 
