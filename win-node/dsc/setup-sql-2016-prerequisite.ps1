@@ -1,8 +1,10 @@
 Configuration Payload
 {
     Param (
-    [Parameter(Mandatory=$false)][string] $nodeName
-   
+    [Parameter(Mandatory=$false)][string] $nodeName,
+    [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String] $storageAccountName
+
+
     #[Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$SqlServerVersion,
     #[Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$DownloadUri
 
@@ -43,7 +45,7 @@ Configuration Payload
 
         xRemoteFile SQLServer2016Package
         {  
-             Uri             = "https://azurestoragez1.blob.core.windows.net/software/en_sql_server_2016_enterprise_x64_dvd_8701793.iso"
+             Uri             = "https://" + $storageAccountName + ".blob.core.windows.net/software/en_sql_server_2016_enterprise_x64_dvd_8701793.iso"
              DestinationPath = 'c:\Setup\en_sql_server_2016_enterprise_x64_dvd_8701793.iso'
              DependsOn       = "[File]SetupDir"
         }

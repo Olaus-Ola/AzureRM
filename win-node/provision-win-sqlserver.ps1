@@ -11,8 +11,8 @@ $StorageAccountName = "azurestoragez1"
 
 
 # Build Base Image 
-$i = 86
-For ($i=86; $i -lt 87; $i++) {
+$i = 87
+For ($i=87; $i -lt 88; $i++) {
   
   $VirtualMachine  = @{
        ResourceGroupName = $ResourceGroupName;
@@ -30,7 +30,7 @@ For ($i=86; $i -lt 87; $i++) {
 
 
 #Install Secondary Data Disk
-$i = 86
+$i = 87
     $DataDisk  = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
