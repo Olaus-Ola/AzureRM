@@ -56,14 +56,14 @@ Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2016-prereq
 
 
 # Azure Blob Storage 
-$downloadUri = Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-prerequisite.ps1 `
+Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014-prerequisite.ps1 `
                             -ResourceGroupName $ResourceGroupName -StorageAccountName $storageAccountName -Force 
 
-$i = 30
-For ($i=30; $i -lt 31; $i++) {
+$i = 87
+For ($i=87; $i -lt 88; $i++) {
 
- $configurationArguments = @{"nodename"="localhost"; "downloaduri"= "$downloadUri" }
- $achiveblobName = 'setup-sql-prerequisite.ps1.zip';
+ $configurationArguments = @{"nodename"="localhost"; "storageAccountName"="$StorageAccountName"}
+ $achiveblobName = 'setup-sql-2014-prerequisite.ps1.zip';
 
 Set-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName -VMName win-sql-$i -ArchiveBlobName $achiveblobName `
     -ArchiveStorageAccountName $StorageAccountName -ConfigurationName "Payload" `
