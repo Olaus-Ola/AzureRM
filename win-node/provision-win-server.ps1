@@ -42,12 +42,18 @@ For ($i=0; $i -lt 1; $i++) {
 }
 
 
+
+
+
+<#
 #Apply DSC Configuration
   # FILE TO UPLOAD: setup-iis-web.ps1.zip
   # Module-Qualified Name of Configuration - setup-iis-web.ps1\payload
   # Configuration Arguments - nodeName=localhost
   # Versión = 2.20 (Latest)
   # Allow minor versión updates true
+
+#>
 
 $i = 0
 For ($i=0; $i -lt 1; $i++) {
