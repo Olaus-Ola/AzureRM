@@ -31,12 +31,6 @@ Configuration Payload
              AllocationUnitSize = 64kb
         }
 
-        WindowsFeature "Framework 3.5"
-        {
-            Name = "NET-Framework-Core"
-            Ensure = "Present"
-        }
-
         File SetupDir
         {
             Type = 'Directory'
@@ -50,6 +44,12 @@ Configuration Payload
                 Uri             = "https://" + $storageAccountName + ".blob.core.windows.net/software/en_sql_server_2014_enterprise_edition_with_service_pack_2_x64_dvd_8962401.iso"
                 DestinationPath = 'c:\Setup\en_sql_server_2014_enterprise_edition_with_service_pack_2_x64_dvd_8962401.iso'
                 DependsOn       = "[File]SetupDir"
+            }
+
+            WindowsFeature "Framework 3.5"
+            {
+                Name = "NET-Framework-Core"
+                Ensure = "Present"
             }
         }
         else {            
