@@ -29,6 +29,7 @@ For ($i=87; $i -lt 88; $i++) {
 }
 
 
+
 #Install Secondary Data Disk
 $i = 87
     $DataDisk  = @{
@@ -39,7 +40,6 @@ $i = 87
        DiskName = "win-sql-$i-data01" 
        };
    ..\util\add-data-disk.ps1 @DataDisk 
-
 
 
 
@@ -54,6 +54,16 @@ Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014-prereq
 Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2016-prerequisite.ps1 -OutputArchivePath "mof\setup-sql-2016-prerequisite.zip" -Force 
 
 
+<#Apply DSC Configuration
+  
+   FILE TO UPLOAD: setup-sql-2014-prerequisite.ps1
+   Module-Qualified Name of Configuration - setup-sql-2014-prerequisite.ps1\payload
+   Configuration Arguments 
+   nodename=localhost,storageAccountName=azurestoragez1
+
+   Version = 2.20 (Latest)
+   Allow minor Version updates true
+#>
 
 # Azure Blob Storage 
 Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014-prerequisite.ps1 `
@@ -74,27 +84,14 @@ Set-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName -VMName win-sql-
 #endregion
 
 
+<#
 
+ Extract-Base Image & Generalize
 
-#Apply DSC Configuration
-  # FILE TO UPLOAD: setup-sql-prerequisite.ps1
-  # Module-Qualified Name of Configuration - setup-sql-2016-prerequisite.ps1\payload
-  # Configuration Arguments 
-  # nodename=localhost,downloaduri=https://azurestoragez1.blob.core.windows.net/software/DownloadTestFile.txt
-  # 
-  #
-  # Version = 2.20 (Latest)
-  # Allow minor Version updates true
-
-
-#Extract-Base Image & Generalize
-
-# Manually Log into machine and Test Functionality
-# cd %windir%\system32\sysprep
-# sysprep /generalize /shutdown /oobe
-
-
-
+ Manually Log into machine and Test Functionality
+ cd %windir%\system32\sysprep
+ sysprep /generalize /shutdown /oobe
+#>
 
 
 $BaseImage = @{
