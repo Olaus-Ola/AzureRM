@@ -42,18 +42,16 @@ For ($i=0; $i -lt 1; $i++) {
 }
 
 
-
-
-
 <#
-#Apply DSC Configuration
-  # FILE TO UPLOAD: setup-iis-web.ps1.zip
-  # Module-Qualified Name of Configuration - setup-iis-web.ps1\payload
-  # Configuration Arguments - nodeName=localhost
-  # Versión = 2.20 (Latest)
-  # Allow minor versión updates true
-
+Apply DSC Configuration
+  
+   FILE TO UPLOAD: setup-iis-web.ps1.zip
+   Module-Qualified Name of Configuration - setup-iis-web.ps1\payload
+   Configuration Arguments - nodeName=localhost
+   Versión = 2.20 (Latest)
+   Allow minor versión updates true
 #>
+
 
 $i = 0
 For ($i=0; $i -lt 1; $i++) {
@@ -67,12 +65,16 @@ For ($i=0; $i -lt 1; $i++) {
 
 }
 
+<#
 
-#Extract-Base Image & Generalize
+Extract-Base Image & Generalize
 
-# Manually Log into machine and Test Functionality
-# cd %windir%\system32\sysprep
-# sysprep /generalize /shutdown /oobe
+ Manually Log into machine and Test Functionality
+ cd %windir%\system32\sysprep
+ sysprep /generalize /shutdown /oobe
+
+#>
+
 
 
 $BaseImage = @{
