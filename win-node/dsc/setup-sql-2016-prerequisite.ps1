@@ -35,6 +35,13 @@ Configuration Payload
              AllocationUnitSize = 64kb
         }
 
+        WindowsFeature "Framework 3.5"
+        {
+            Name = "NET-Framework-Core"
+            Ensure = "Present"
+        }
+
+
         File SetupDir
         {
             Type = 'Directory'
