@@ -76,7 +76,6 @@ Extract-Base Image & Generalize
 #>
 
 
-
 $BaseImage = @{
 
     ResourceGroupName = $ResourceGroupName;    
