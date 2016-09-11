@@ -41,14 +41,12 @@ Configuration Payload
             Ensure = "Present"
         }
 
-
         File SetupDir
         {
             Type = 'Directory'
             DestinationPath = 'c:\Setup'
             Ensure = "Present"    
         }
-
 
         xRemoteFile SQLServer2016Package
         {  
@@ -62,8 +60,5 @@ Configuration Payload
              Uri             = "http://go.microsoft.com/fwlink/?LinkID=824938"
              DestinationPath = 'c:\Setup\SSMS-Setup-ENU.exe'
         }
-
-
-
     }
 }

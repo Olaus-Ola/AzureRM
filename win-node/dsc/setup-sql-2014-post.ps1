@@ -15,9 +15,6 @@ Configuration Payload
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName xDatabase
 
-
-
-
     Node $nodeName
     {
         LocalConfigurationManager
@@ -38,7 +35,6 @@ Configuration Payload
              DestinationPath = "c:\Setup\NycLandmarks.bacpac"
              DependsOn       = "[File]SetupDir"
         }
-
 
         xDatabase DeployBacPac
         {
