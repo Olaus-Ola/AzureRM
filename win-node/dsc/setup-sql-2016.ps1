@@ -5,16 +5,6 @@ param ()
 
 Configuration SQLSA
 {
-
-    Param (
-    [Parameter(Mandatory=$false)][string] $nodeName
-    #[Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$DatabaseName,
-    #[Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$SqlServerVersion,
-
-    #[PSCredential]$Credentials
-
-    )
-
     Import-DscResource -Module xSQLServer
     Import-DscResource -Module xStorage
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
@@ -57,7 +47,7 @@ Configuration SQLSA
             Ensure = "Present"
             Name = "NET-Framework-Core"
         }
-
+        
         File SetupDir
         {
             Type = 'Directory'
@@ -81,6 +71,7 @@ Configuration SQLSA
             Ensure = 'Present'
             DependsOn = "[xRemoteFile]SQLServer2016Package"
         }
+        
 
         File MoveSqlSourceFiles
         {
@@ -89,7 +80,7 @@ Configuration SQLSA
             Ensure = "present"
             Type = "Directory"
             Recurse = $true
-            DependsOn = "[xMountImage]MountSQLImage"
+            #DependsOn = "[xMountImage]MountSQLImage"
         }
         
         # Install SQL Instances
@@ -151,7 +142,7 @@ Configuration SQLSA
     }
 }
 
-$InstallerServiceAccount = Get-Credential $user
+$InstallerServiceAccount = Get-Credential "testo"
 
 $ConfigurationData = @{
     AllNodes = @(
@@ -163,11 +154,11 @@ $ConfigurationData = @{
             InstallerServiceAccount = $InstallerServiceAccount
             LocalSystemAccount = $InstallerServiceAccount
 
-            AdminAccount = $user
+            AdminAccount = "testo"
 
         }
         @{
-            NodeName = $nodename
+            NodeName = "localhost"
             SQLServers = @(
                 @{
                     InstanceName = "MSSQLSERVER"
