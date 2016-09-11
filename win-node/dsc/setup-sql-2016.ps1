@@ -9,7 +9,6 @@ Configuration SQLSA
     Import-DscResource -Module xStorage
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
-
     # Set role and instance variables
     $Roles = $AllNodes.Roles | Sort-Object -Unique
     foreach($Role in $Roles)
@@ -72,7 +71,6 @@ Configuration SQLSA
             DependsOn = "[xRemoteFile]SQLServer2016Package"
         }
         
-
         File MoveSqlSourceFiles
         {
             SourcePath = "s:"
@@ -128,6 +126,7 @@ Configuration SQLSA
         }
 
         # Install SQL Management Tools
+        # I turned this off meanwhile
         if($SQLServer2012ManagementTools | Where-Object {$_ -eq $Node.NodeName})
         {
             xSqlServerSetup "SQLMT"
