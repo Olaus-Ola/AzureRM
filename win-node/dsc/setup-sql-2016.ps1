@@ -80,7 +80,7 @@ Configuration SQLSA
             Ensure = "present"
             Type = "Directory"
             Recurse = $true
-            #DependsOn = "[xMountImage]MountSQLImage"
+            DependsOn = "[xMountImage]MountSQLImage"
         }
         
         # Install SQL Instances
