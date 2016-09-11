@@ -1,51 +1,67 @@
-$ResourceGroupName = 'azurerm'
-$Location = 'eastus2'
-$VaultName = 'bault'
-$secretName = 'bigscrt'
-$vmName = 'certesto'
-$StorageAccountName = "azurestoragez2"
-$certStore = "My"
+Param
+(
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $ResourceGroupName,    
 
-New-SelfSignedCertificate -DnsName "*.westeurope.cloudapp.azure.com" -CertStoreLocation Cert:\LocalMachine\My
-Export-PfxCertificate -Cert cert:\localmachine\my\B5CF5418484E65C02C7AE4C0FE352DD4AAC16CE3 -FilePath c:\1.pfx -Password (ConvertTo-SecureString -String '!Q2w3e4r' -Force -AsPlainText)
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $Location,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $vmName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $VaultName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $vaultSecretName,
+
+    [Parameter(Mandatory=$true)]
+    [String] 
+    $password
+)
+
+$tempPath = [System.IO.Path]::GetTempFileName()
+$cert = New-SelfSignedCertificate -DnsName "*.$Location.cloudapp.azure.com" -CertStoreLocation Cert:\LocalMachine\My
+Export-PfxCertificate -Cert cert:\localmachine\my\$($cert.Thumbprint) -FilePath $tempPath -Password (ConvertTo-SecureString -Force -AsPlainText -String $password)
  
-New-AzureRmKeyVault -VaultName $VaultName `
-                    -ResourceGroupName $ResourceGroupName `
+New-AzureRmKeyVault -VaultName $vaultName `
+                    -ResourceGroupName $resourceGroupName `
                     -Location $Location `
                     -EnabledForTemplateDeployment `
                     -EnabledForDeployment `
                     -Sku standard 
  
-$fileName = "C:\1.pfx"
-$fileContentBytes = get-content $fileName -Encoding Byte
+$fileContentBytes = get-content $tempPath -Encoding Byte
 $fileContentEncoded = [System.Convert]::ToBase64String($fileContentBytes)
- 
+Remove-Item $tempPath 
 $jsonObject = @"
 {
-"data": "$filecontentencoded",
+"data": "$fileContentEncoded",
 "dataType" :"pfx",
-"password": "!Q2w3e4r"
+"password": $password
 }
 "@
  
 $jsonObjectBytes = [System.Text.Encoding]::UTF8.GetBytes($jsonObject)
 $jsonEncoded = [System.Convert]::ToBase64String($jsonObjectBytes)
- 
-$secret = ConvertTo-SecureString -String $jsonEncoded -AsPlainText –Force
-Set-AzureKeyVaultSecret -VaultName $VaultName -Name gg -SecretValue $secret
+$vaultSecret = Set-AzureKeyVaultSecret -VaultName $vaultName -Name $vaultSecretName -SecretValue (ConvertTo-SecureString -Force -AsPlainText -String $jsonEncoded)
 
-$vaultsecret = Get-AzureKeyVaultSecret -VaultName $VaultName -Name gg
 #$vm = Add-AzureRmVMSecret -VM $vm -SourceVaultId $vaultId -CertificateStore $certStore -CertificateUrl $certUrl
-
 #Update-AzureRmVM -ResourceGroupName $ResourceGroupName -VM $vm
-#returns success, but no cert on server (both 2012r2 and nano)
+#returns success, but no cert on server (both 2012r2 and nano), turns out sometimes it works, but pretty randomly.
+#I would advice against using this shit.
 
 $parameters = @{
     "vmName" = $vmName
     "resourceGroup" = $ResourceGroupName
     "templateUri" = "https://raw.githubusercontent.com/stuartshay/AzureRM/master/win-node/nano/arm-addcertificate.json"
-    "vaultName" = $VaultName
-    "vaultResourceGroup" = $ResourceGroupName
-    "secretUrlWithVersion" = $($vaultsecret.id)
+    "vaultName" = $vaultName
+    "vaultResourceGroup" = $resourceGroupName
+    "secretUrlWithVersion" = $($vaultSecret.id)
 }
 New-AzureRmResourceGroupDeployment @parameters
