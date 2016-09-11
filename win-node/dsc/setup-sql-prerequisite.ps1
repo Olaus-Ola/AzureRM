@@ -38,6 +38,12 @@ Configuration Payload
             Ensure = "Present"    
         }
 
+       WindowsFeature "NET-Framework-Core"
+       {
+          Name = "NET-Framework-Core"
+          Ensure = "Present"
+       }
+
         if ($sqlVersion -eq "2014") {
             xRemoteFile SQLServer2014Package
             {  
@@ -45,18 +51,13 @@ Configuration Payload
                 DestinationPath = 'c:\Setup\en_sql_server_2014_enterprise_edition_with_service_pack_2_x64_dvd_8962401.iso'
                 DependsOn       = "[File]SetupDir"
             }
-
-            WindowsFeature "Framework 3.5"
-            {
-                Name = "NET-Framework-Core"
-                Ensure = "Present"
-            }
         }
         else {            
+            
             xRemoteFile SQLServer2016Package
             {  
                 Uri             = "https://" + $storageAccountName + ".blob.core.windows.net/software/en_sql_server_2016_enterprise_x64_dvd_8701793.iso"
-                DestinationPath = 'c:\Setup\en_sql_server_2014_enterprise_edition_with_service_pack_2_x64_dvd_8962401.iso'
+                DestinationPath = 'c:\Setup\en_sql_server_2016_enterprise_x64_dvd_8701793.iso'
                 DependsOn       = "[File]SetupDir"
             }
 

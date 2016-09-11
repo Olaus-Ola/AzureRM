@@ -8,11 +8,9 @@ $SubNetIndex = 2
 
 $StorageAccountName = "azurestoragez1"
 
-
-
 # Build Base Image 
-$i = 87
-For ($i=87; $i -lt 88; $i++) {
+$i = 0
+For ($i=0; $i -lt 1; $i++) {
   
   $VirtualMachine  = @{
        ResourceGroupName = $ResourceGroupName;
@@ -31,7 +29,7 @@ For ($i=87; $i -lt 88; $i++) {
 
 
 #Install Secondary Data Disk
-$i = 87
+$i = 0
     $DataDisk  = @{
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
@@ -42,44 +40,42 @@ $i = 87
    ..\util\add-data-disk.ps1 @DataDisk 
 
 
-
 #region Publish DSC Image 
 
 #Local File System
 
-# SQL 2014
-Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014-prerequisite.ps1 -OutputArchivePath "mof\setup-sql-2014-prerequisite.zip" -Force 
-
-# SQL 2016
-Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2016-prerequisite.ps1 -OutputArchivePath "mof\setup-sql-2016-prerequisite.zip" -Force 
-
+Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-prerequisite.ps1 -OutputArchivePath "mof\setup-sql-prerequisite.ps1.zip" -Force 
 
 <#Apply DSC Configuration
   
-   FILE TO UPLOAD: setup-sql-2014-prerequisite.ps1
-   Module-Qualified Name of Configuration - setup-sql-2014-prerequisite.ps1\payload
+   FILE TO UPLOAD: setup-sql-prerequisite.ps1
+   Module-Qualified Name of Configuration - setup-sql-prerequisite.ps1\payload
    Configuration Arguments 
-   nodename=localhost,storageAccountName=azurestoragez1
+   nodename=localhost,storageAccountName=azurestoragez1,sqlVersion=2016
 
    Version = 2.20 (Latest)
    Allow minor Version updates true
 #>
 
+
 # Azure Blob Storage 
-Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-2014-prerequisite.ps1 `
+Publish-AzureRmVMDscConfiguration -ConfigurationPath .\dsc\setup-sql-prerequisite.ps1 `
                             -ResourceGroupName $ResourceGroupName -StorageAccountName $storageAccountName -Force 
 
-$i = 87
-For ($i=87; $i -lt 88; $i++) {
 
- $configurationArguments = @{"nodename"="localhost"; "storageAccountName"="$StorageAccountName"}
- $achiveblobName = 'setup-sql-2014-prerequisite.ps1.zip';
+$i = 0
+For ($i=0; $i -lt 1; $i++) {
+
+ $configurationArguments = @{"nodename"="localhost"; "storageAccountName"="$StorageAccountName"; "sqlVersion" = "2016";}
+ $achiveblobName = 'setup-sql-prerequisite.ps1.zip';
+
 
 Set-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName -VMName win-sql-$i -ArchiveBlobName $achiveblobName `
     -ArchiveStorageAccountName $StorageAccountName -ConfigurationName "Payload" `
     -ConfigurationArgument $configurationArguments -Version 2.20 -Force
 
 }
+
 
 #endregion
 
@@ -100,8 +96,8 @@ $BaseImage = @{
     Location = $Location;
     StorageAccountName = $StorageAccountName;
     ContainerName = "vm-images"
-    VmName = "win-sql-30"
-    NicName ="win-sql-nic-30"
+    VmName = "win-sql-0"
+    NicName ="win-sql-nic-0"
     VhdNamePrefix = "win-sql-2016-2016-09-02"
 
  };

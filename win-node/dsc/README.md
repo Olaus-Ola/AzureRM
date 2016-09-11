@@ -8,21 +8,16 @@ nodename=localhost
 Latest 2.20
 ````
 
+### setup-sql-prerequisite.ps1
 
-### setup-sql-2014-prerequisite.ps1
+SQL Version 2014/2016
 
 ````
-setup-sql-2014-prerequisite.ps1\Payload
-nodename=localhost,storageAccountName=azurestoragez1
+setup-sql-prerequisite.ps1\Payload
+nodename=localhost,storageAccountName=azurestoragez1,sqlVersion=2016
 Latest 2.20
 ````
 
 
 
-### setup-sql-2016-prerequisite.ps1
 
-````
-setup-sql-2016-prerequisite.ps1\Payload
-nodename=localhost,storageAccountName=azurestoragez1
-Latest 2.20
-````
