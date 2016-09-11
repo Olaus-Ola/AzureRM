@@ -26,15 +26,14 @@ Param
 )
 
 $tempPath = [System.IO.Path]::GetTempFileName()
-$cert = New-SelfSignedCertificate -DnsName "*.$Location.cloudapp.azure.com" -CertStoreLocation Cert:\LocalMachine\My
+$cert = New-SelfSignedCertificate -DnsName "*.$Location.cloudapp.azure.com" -CertStoreLocation cert:\LocalMachine\My
 Export-PfxCertificate -Cert cert:\localmachine\my\$($cert.Thumbprint) -FilePath $tempPath -Password (ConvertTo-SecureString -Force -AsPlainText -String $password)
  
 New-AzureRmKeyVault -VaultName $vaultName `
                     -ResourceGroupName $resourceGroupName `
                     -Location $Location `
                     -EnabledForTemplateDeployment `
-                    -EnabledForDeployment `
-                    -Sku standard 
+                    -EnabledForDeployment
  
 $fileContentBytes = get-content $tempPath -Encoding Byte
 $fileContentEncoded = [System.Convert]::ToBase64String($fileContentBytes)
