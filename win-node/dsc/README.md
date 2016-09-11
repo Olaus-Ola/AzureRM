@@ -10,7 +10,9 @@ Latest 2.20
 
 ### setup-sql-prerequisite.ps1
 
-SQL Version 2014/2016
+SQL Version 2014/2016   
+Add Install Files to Storage Container
+
 
 ````
 setup-sql-prerequisite.ps1\Payload
