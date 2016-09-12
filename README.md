@@ -69,9 +69,9 @@ In a Powershell Admin Console add the necessary DSC Modules
 
 ````
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted 
-Install-Module -Name  cChoco, xDatabase, xNetworking, xPSDesiredStateConfiguration, xWebAdministration, xStorage
+Install-Module -Name  xNetworking, xPSDesiredStateConfiguration, xWebAdministration, xStorage, xSQLServer, xDatabase
 
-Update-Module -Name cChoco, xDatabase, xNetworking, xPSDesiredStateConfiguration, xWebAdministration, xStorage
+Update-Module -Name  xNetworking, xPSDesiredStateConfiguration, xWebAdministration, xStorag, xSQLServer, xDatabasee
 ````
 
 Linux Modules        
