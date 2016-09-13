@@ -1,0 +1,14 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/VM_IP.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmname": { "value": "master" },
+    "vmSize": { "value": "Standard_D1_v2" },
+    "adminUserName": { "value": "ansible" },
+    "adminPassword": { "value": "Abc@123" },
+	"vhd-url": { "value": "https://ansiblestorage635.blob.core.windows.net/ansible-master/osDisk.vhd" },
+	"tag_key": { "value": "master" },
+    "key_value": { "value": "master1" },
+	"networkInterfaceId": { "value": "/subscriptions/13642543-1eb1-420e-9dba-cc82106a3329/resourceGroups/ansible-resource/providers/Microsoft.Network/networkInterfaces/ansible-nic" }
+  }
+}

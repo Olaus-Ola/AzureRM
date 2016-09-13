@@ -7,11 +7,6 @@ Param
 
     [Parameter(Mandatory=$true)]
     [String] 
-    $Location,
-
-
-    [Parameter(Mandatory=$true)]
-    [String] 
     $StorageAccountName,
 
 
@@ -28,7 +23,6 @@ Param
     $NicName,
 
     [Parameter(Mandatory=$true)]
-    [ValidatePattern(“^[^_\W][\w-._]{0,23}(?<![-.])$”)]
     [String] 
     $VhdNamePrefix
 )

@@ -1,8 +1,8 @@
 Login-AzureRMAccount
 
-$ResourceGroupName = 'AzureRM'
-$Location = 'East US 2'
-$VnetName = "AzureRmVNet"
+$ResourceGroupName = 'docker-resource'
+$Location = 'Canada Central'
+$VnetName = "docker-network"
 
 $i = 0;
 $IpAddressName = 'azurerm-pip-' + $i
@@ -25,7 +25,7 @@ Set-AzureRmNetworkInterface -NetworkInterface $nic
 
 
 #Remove Public IP 
-Remove-AzureRmPublicIpAddress -Name "AzureRmVNet-pip-0" -ResourceGroupName $ResourceGroupName -Force
+#Remove-AzureRmPublicIpAddress -Name "AzureRmVNet-pip-0" -ResourceGroupName $ResourceGroupName -Force
 
 
 

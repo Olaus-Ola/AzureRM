@@ -4,10 +4,10 @@ Get-AzureRmSubscription | Format-Table
 Get-AzureRmSubscription | Out-GridView
 
 
-$ResourceGroupName = 'AzureRM'
-$Location = 'East US 2'
-$VnetName = "AzureRmVNet"
-$VNetAddressPrefix = "192.168.0.0/16"
+$ResourceGroupName = 'ansible-resource'
+$Location = 'Canada Central'
+$VnetName = "Ansible-network"
+$VNetAddressPrefix = "10.0.0.0/28"
 
 
 #region Create Resource Group
@@ -37,38 +37,6 @@ $vnet = New-AzureRmVirtualNetwork -Name $VnetName -ResourceGroupName $ResourceGr
 
 #endregion
 
-
-#region Create Subnets
-
-$vnet = Get-AzureRmVirtualNetwork -ResourceGroupName $ResourceGroupName -Name $VnetName
-Add-AzureRmVirtualNetworkSubnetConfig -Name FrontEnd -VirtualNetwork $vnet -AddressPrefix 192.168.1.0/24
-Add-AzureRmVirtualNetworkSubnetConfig -Name BackEnd  -VirtualNetwork $vnet -AddressPrefix 192.168.2.0/24
-Add-AzureRmVirtualNetworkSubnetConfig -Name ClientNetwork  -VirtualNetwork $vnet -AddressPrefix 192.168.3.0/24
-
-Set-AzureRmVirtualNetwork -VirtualNetwork $vnet 
-
-
-#endregion
-
-
-#region Create Subnet Resources 
-
-
- $SubnetPublicResource = @{
-       ResourceGroupName = $ResourceGroupName;
-       Location = $Location;
-       VnetName = $VnetName;  
-       SubnetIndex = $SubNetIndex;
-       LoadBalancerName = 'public-lb';
-       AvailabilitySetName = 'public-aset'
-       AddressPrefix = '192.168.1.0/24';
-       };
-
-   .  .\..\subnet\subnet-public.ps1 @SubnetPublicResource;
-
-
-
-#endregion
 
 
 #region Subnet Properties 

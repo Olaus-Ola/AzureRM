@@ -1,0 +1,73 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/VM_IP.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmName": {
+      "type": "string"
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D1_v2"
+    },
+    "adminUserName": {
+      "type": "string"
+    },
+    "adminPassword": {
+      "type": "securestring"
+    },
+    "networkInterfaceId": {
+      "type": "string"
+    },
+	"vhd-url": {
+	  "type": "string"
+	},
+	"tag_key": {
+	  "type": "string"
+	},
+	"key_value": {
+	  "type": "string"
+		}
+	},
+  "resources": [
+    {
+      "apiVersion": "2016-03-30",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('vmSize')]"
+        },
+        "storageProfile": {
+          "osDisk": {
+            "osType": "Linux",
+            "name": "u-ansible-2016-09-13-osDisk.c36127bd-139b-48a2-8af8-05d70c1b195d.vhd",
+            "createOption": "FromImage",
+            "image": {
+              "uri": "https://ansiblestorage635.blob.core.windows.net/system/Microsoft.Compute/Images/vm-images/u-ansible-2016-09-13-osDisk.c36127bd-139b-48a2-8af8-05d70c1b195d.vhd"
+     	 		},
+					"vhd": {
+		                "uri": "[parameters('vhd-url')]",
+					},
+					"caching": "ReadWrite"
+				}
+			},
+        "osProfile": {
+          "computerName": "[parameters('vmName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "networkProfile": {"networkInterfaces":[{"id":"[parameters('networkInterfaceId')]"}]},
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": true,
+            "storageUri": "https://ansiblestorage635.blob.core.windows.net/"
+          }
+        },
+        "provisioningState": 0
+      },
+	  	"name": "[parameters('vmName')]",
+		"type": "Microsoft.Compute/virtualMachines",
+		"location": "CanadaCentral",
+		"tags": {
+		"[parameters('tag_key')]": "[parameters('key_value')]"
+    }
+	}]
+}
