@@ -38,24 +38,7 @@ $UploadScripts = @{
 }
 . ..\util\upload-scripts.ps1 @UploadScripts
 
-#Build VM
-$i = 0
-For ($i=0; $i -lt 1; $i++) {
-
-    $VirtualMachine = @{
-       ResourceGroupName = $ResourceGroupName;
-       Location = $Location;
-       StorageAccountName = $StorageAccountName;
-       VnetName = $VnetName;  
-       SubnetIndex = $SubNetIndex;
-       VmName = "ub-coreweb-$i";
-       NicName = "ub-coreweb-nic-$i"
-       VmSize = "Standard_D1_v2"
-       };
-
-   .  .\..\base\build-ub.ps1 @VirtualMachine;
-
-}
+ 
 
 #Apply DSC Extension
 $DSC = @{
@@ -83,7 +66,7 @@ $BaseImage = @{
     ContainerName = "vm-images"
     VmName = "ub-coreweb-0"
     NicName ="ub-coreweb-nic-0"
-    VhdNamePrefix = "ub-coreweb-2016-08-30"
+    VhdNamePrefix = "ub-coreweb-2016-09-12"
 
  };
 
