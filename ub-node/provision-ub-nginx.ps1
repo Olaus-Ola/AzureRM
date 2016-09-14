@@ -81,7 +81,7 @@ $BaseImage = @{
     ContainerName = "vm-images"
     VmName = "ub-nginx-proxy-0"
     NicName ="ub-nginx-proxy-nic-0"
-    VhdNamePrefix = "ub-14-04-lts-2016-09-13"
+    VhdNamePrefix = "ub-16-04-lts-2016-09-13"
 
  };
 
