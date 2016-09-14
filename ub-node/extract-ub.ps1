@@ -9,7 +9,6 @@ Param
     [String] 
     $Location,
 
-
     [Parameter(Mandatory=$true)]
     [String] 
     $StorageAccountName,
@@ -28,7 +27,6 @@ Param
     $NicName,
 
     [Parameter(Mandatory=$true)]
-    [ValidatePattern(“^[^_\W][\w-._]{0,23}(?<![-.])$”)]
     [String] 
     $VhdNamePrefix
 )
@@ -43,14 +41,10 @@ Stop-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $vmName
 Set-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $vmName -Generalized
 Save-AzureRmVMImage -ResourceGroupName $ResourceGroupName -Name $vmName -DestinationContainerName $ContainerName -VHDNamePrefix $VhdNamePrefix -Path $path
 
-
-
 # Remove Resources
 Remove-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $vmName
 Remove-AzureRmNetworkInterface -Name $NicName -ResourceGroupName $ResourceGroupName -Force 
 
-
 #Remove VHD Disk
 $storageContext = (Get-AzureRmStorageAccount -ResourceGroupName $ResourceGroupName -AccountName $StorageAccountName).Context
 Remove-AzureStorageBlob -Blob $diskName -Container vhds -Context $storageContext
-

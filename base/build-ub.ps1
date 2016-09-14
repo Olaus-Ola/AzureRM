@@ -65,7 +65,7 @@ $osDiskUri = $storageAccount.PrimaryEndpoints.Blob.ToString() + "vhds/" + $diskN
 
 $publisher = "Canonical";
 $offer = "UbuntuServer";
-$sku = "16.04.0-LTS";
+$sku = "14.04.0-LTS";
 $version = "latest";
 
 
