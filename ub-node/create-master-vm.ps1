@@ -4,14 +4,14 @@ $ResourceGroupName = "ansible-resource"
 $Location = "Canada Central"
 $VnetName = "Ansible-network"
 $SubNetIndex = 0
-$NicName= "ansible-nic"
+$NicName= "master-nic"
 
 $StorageAccountName = "ansiblestorage635"
 
-$ipName = "new-ip"
+$ipName = "master-ip"
 
-$TemplateUri= "C:\Users\Pari\Desktop\harpreet\Auto-deploy-docker-azure\ub-node\master_template.json"
-$parameterFile= "C:\Users\Pari\Desktop\harpreet\Auto-deploy-docker-azure\ub-node\master_parameter.json"
+$TemplateUri= "master_template.json"
+$parameterFile= "master_parameter.json"
 
 # Pip
 

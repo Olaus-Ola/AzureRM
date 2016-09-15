@@ -4,14 +4,14 @@ $ResourceGroupName = "ansible-resource"
 $Location = "Canada Central"
 $VnetName = "Ansible-network"
 $SubNetIndex = 0
-$NicName= "manager2-nic"
+$NicName= "worker1"
 
 $StorageAccountName = "ansiblestorage635"
 
-$ipName = "manager2-ip"
+$ipName = "worker1ip"
 
-$TemplateUri= "C:\Users\Pari\Desktop\harpreet\Auto-deploy-docker-azure\ub-node\slave_template.json"
-$parameterFile= "C:\Users\Pari\Desktop\harpreet\Auto-deploy-docker-azure\ub-node\slave_parameter.json"
+$TemplateUri= "slave_template.json"
+$parameterFile= "slave_parameter.json"
 
 # Pip
 
