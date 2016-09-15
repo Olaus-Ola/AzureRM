@@ -10,6 +10,12 @@ Configuration AnsibleControl
             Name            = "ssh"
             PackageManager  = "apt"
         } 
+		nxPackage sshpass  
+        {  
+            Ensure          = "Present"
+            Name            = "sshpass"
+            PackageManager  = "apt"
+        } 
 		nxPackage ansible  
         {  
             Ensure          = "Present"

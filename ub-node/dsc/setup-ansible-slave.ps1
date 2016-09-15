@@ -10,7 +10,11 @@ Configuration AnsibleControl
             Name            = "ssh"
             PackageManager  = "apt"
         } 
-   
+		nxFileLine nopass
+        {
+            FilePath = "/etc/sudoers"
+            ContainsLine = 'ansible ALL=(ALL) NOPASSWD:ALL'
+         }
     }
 
 }
