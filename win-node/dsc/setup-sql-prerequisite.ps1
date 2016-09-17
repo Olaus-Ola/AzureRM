@@ -37,6 +37,7 @@ Configuration Payload
                 Uri             = "https://" + $storageAccountName + ".blob.core.windows.net/software/en_sql_server_2014_enterprise_edition_with_service_pack_2_x64_dvd_8962401.iso"
                 DestinationPath = 'c:\Setup\en_sql_server_2014_enterprise_edition_with_service_pack_2_x64_dvd_8962401.iso'
                 DependsOn       = "[File]SetupDir"
+                MatchSource     = $false
             }
         }
         else {            
@@ -46,6 +47,7 @@ Configuration Payload
                 Uri             = "https://" + $storageAccountName + ".blob.core.windows.net/software/en_sql_server_2016_enterprise_x64_dvd_8701793.iso"
                 DestinationPath = 'c:\Setup\en_sql_server_2016_enterprise_x64_dvd_8701793.iso'
                 DependsOn       = "[File]SetupDir"
+                MatchSource     = $false
             }
         }
 
@@ -56,6 +58,7 @@ Configuration Payload
                 Uri             = "http://go.microsoft.com/fwlink/?LinkID=824938"
                 DestinationPath = 'c:\Setup\SSMS-Setup-ENU.exe'
                 DependsOn       = "[File]SetupDir"
+                MatchSource     = $false
             }
 
             Package ManagementStudio
