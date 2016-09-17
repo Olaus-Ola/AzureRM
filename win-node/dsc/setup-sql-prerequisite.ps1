@@ -3,7 +3,8 @@ Configuration Payload
     Param (
     [Parameter(Mandatory=$false)][string] $nodeName,
     [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$storageAccountName,
-    [Parameter(Mandatory)][ValidateSet("2014","2016")][String]$sqlVersion    
+    [Parameter(Mandatory)][ValidateSet("2014","2016")][String]$sqlVersion,
+    [Parameter(Mandatory)][bool]$managementstudio    
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
