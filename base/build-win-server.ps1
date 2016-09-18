@@ -54,7 +54,7 @@ write-output("StorageAccountName: " + $StorageAccountName + "Id: " + $storageAcc
 
 # Nic
 $nic = New-AzureRmNetworkInterface -ResourceGroupName $ResourceGroupName `
-                                   -Name $NicName  -Subnet $vnet.Subnets[$SubnetIndex] -Location $Location 
+                                   -Name $NicName  -Subnet $vnet.Subnets[$SubnetIndex] -Location $Location -Force
 
 
 # VM Disk
