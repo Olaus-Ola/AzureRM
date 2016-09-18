@@ -27,8 +27,7 @@ For ($i=0; $i -lt 1; $i++) {
 }
 
 
-
-#Install Secondary Data Disk
+<#Install Secondary Data Disk
 $i = 0
     $DataDisk  = @{
        ResourceGroupName = $ResourceGroupName;
@@ -38,6 +37,7 @@ $i = 0
        DiskName = "win-sql-$i-data01" 
        };
    ..\util\add-data-disk.ps1 @DataDisk 
+#>
 
 
 #region Publish DSC Image 
@@ -98,9 +98,7 @@ $BaseImage = @{
     ContainerName = "vm-images"
     VmName = "win-sql-0"
     NicName ="win-sql-nic-0"
-    VhdNamePrefix = "win-sql-2016-2016-09-02"
 
  };
 
  .\extract-win.ps1 @BaseImage 
-
