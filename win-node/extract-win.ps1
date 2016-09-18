@@ -44,5 +44,5 @@ Save-AzureRmVMImage -ResourceGroupName $ResourceGroupName -Name $vmName -Destina
 
 
 # Remove Resources
-Remove-AzureRmNetworkInterface -Name $nicName -ResourceGroupName $ResourceGroupName -Force 
 Remove-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $vmName
+Remove-AzureRmNetworkInterface -Name $nicName -ResourceGroupName $ResourceGroupName -Force 
