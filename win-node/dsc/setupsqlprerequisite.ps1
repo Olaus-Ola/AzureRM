@@ -1,15 +1,13 @@
-Configuration Payload
+Configuration setupsqlprerequisite
 {
     Param (
     [Parameter(Mandatory=$false)][string] $nodeName,
     [Parameter(Mandatory)][ValidateNotNullOrEmpty()][String]$storageAccountName,
     [Parameter(Mandatory)][ValidateSet("2014","2016")][String]$sqlVersion,
-    [Parameter(Mandatory=$false)][bool]$managementStudio    
+    [Parameter(Mandatory)][bool]$managementstudio    
     )
 
-    Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration
-    Import-DscResource -ModuleName xStorage
+    Import-DscResource -ModuleName PSDesiredStateConfiguration,xPSDesiredStateConfiguration,xStorage
 
     Node $nodeName
     {
@@ -51,7 +49,7 @@ Configuration Payload
             }
         }
 
-        if ($managementStudio) {
+        if ($managementstudio) {
 
             xRemoteFile SQLServerMangementPackage
             {  
@@ -59,6 +57,16 @@ Configuration Payload
                 DestinationPath = 'c:\Setup\SSMS-Setup-ENU.exe'
                 DependsOn       = "[File]SetupDir"
                 MatchSource     = $false
+            }
+
+            Package ManagementStudio
+            {
+                Ensure = "Present"
+                Path = "C:\Setup\SSMS-Setup-ENU.exe"
+                Arguments = "/q /norestart"
+                Name = "ManagementStudio"
+                ProductId = "446B31DB-00FC-4EEF-8B13-7F5F8A38F026"
+                DependsOn = "[xRemoteFile]SQLServerMangementPackage"
             }
         }
     }
