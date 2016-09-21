@@ -1,13 +1,12 @@
 #Login-AzureRMAccount
 Set-Location C:\Users\Pari\Desktop\harpreet\Auto-deploy-docker-azure\ub-node
 
+$ResourceGroupName = 'AzureRM'
+$Location = 'East US 2'
+$VnetName = "AzureRmVNet"
+$SubNetIndex = 2
 
-$ResourceGroupName = "ansible-resource"
-$Location = "Canada Central"
-$VnetName = "Ansible-network"
-$SubNetIndex = 0
-
-$StorageAccountName = "ansiblestorage635"
+$StorageAccountName = "azurestoragez1"
 
 #Extract-Base Image
 $BI = @{
