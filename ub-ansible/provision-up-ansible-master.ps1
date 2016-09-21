@@ -1,13 +1,13 @@
-#Login-AzureRMAccount
-Set-Location C:\Users\Pari\Desktop\harpreet\Auto-deploy-docker-azure\ub-node
+<#
+ Ansible Base Image 
+#>
 
+$ResourceGroupName = 'AzureRM'
+$Location = 'East US 2'
+$VnetName = "AzureRmVNet"
+$SubNetIndex = 2
 
-$ResourceGroupName = "ansible-resource"
-$Location = "Canada Central"
-$VnetName = "Ansible-network"
-$SubNetIndex = 0
-
-$StorageAccountName = "ansiblestorage635"
+$StorageAccountName = "azurestoragez1"
 
 #Create MOF File
 . ./dsc/setup-ansible-control.ps1
@@ -69,11 +69,6 @@ $DSC = @{
  .\Install-mof.ps1 @DSC
 
 
-
-#  ********* Manual Step/Test Machine *************** 
-# Manually Add IP and Login
-# Verify and Run waagent on Host >sudo waagent -deprovision+user
-# after the above command run the below code to remove the vm and extracting base image
   
 
 
