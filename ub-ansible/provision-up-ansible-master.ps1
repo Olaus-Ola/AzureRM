@@ -2,6 +2,8 @@
  Ansible Base Image 
 #>
 
+Login-AzureRMAccount
+
 $ResourceGroupName = 'AzureRM'
 $Location = 'East US 2'
 $VnetName = "AzureRmVNet"
@@ -65,19 +67,6 @@ $DSC = @{
     ContainerName = "mof"
     MOFfile = "ansible-master.mof"
     VmName = "ub-ansible-0"
+    Platform = "Linux"
  };
- .\Install-mof.ps1 @DSC
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
+  .  .\..\util\install-mof.ps1 @DSC

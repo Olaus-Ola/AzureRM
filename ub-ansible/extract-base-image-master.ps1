@@ -1,5 +1,4 @@
 #Login-AzureRMAccount
-Set-Location C:\Users\Pari\Desktop\harpreet\Auto-deploy-docker-azure\ub-node
 
 $ResourceGroupName = 'AzureRM'
 $Location = 'East US 2'
@@ -19,4 +18,4 @@ $BI = @{
    VhdNamePrefix = "ub-ansible-2016-09-13"
 
 };
- .\extract-ub.ps1 @BI
+. ..\util\extract-base.ps1 @BI
