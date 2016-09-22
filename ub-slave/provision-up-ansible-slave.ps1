@@ -1,5 +1,5 @@
 <#
- Ansible Master Base Image 
+ Ansible Slave/Client Base Image 
 #>
 
 Login-AzureRMAccount
@@ -11,9 +11,11 @@ $SubNetIndex = 2
 
 $StorageAccountName = "azurestoragez1"
 
+
 #Create MOF File
-. ./dsc/setup-ansible-control.ps1
-AnsibleControl  -Output ./mof
+. ./dsc/setup-ansible-slave.ps1
+AnsibleSlave  -Output ./mof
+
 
 #Upload MOF File
 $UploadMof = @{
@@ -22,21 +24,9 @@ $UploadMof = @{
     Location = $Location;
     StorageAccountName = $StorageAccountName;
     ContainerName = "mof"
-      File = "./mof/ansible-master.mof"
+      File = "./mof/ansible-slave.mof"
  };
 . ..\util\upload-mof.ps1 @UploadMof 
-
-
-#Upload Scripts
-$UploadScripts = @{
-
-    ResourceGroupName = $ResourceGroupName;    
-    Location = $Location;
-    StorageAccountName = $StorageAccountName;
-    ContainerName = "ansible"
-      PathToContent =".\config\ansible" 
-};
-. ..\util\upload-scripts.ps1 @UploadScripts
 
 
 #Build VM
@@ -47,16 +37,16 @@ For ($i=0; $i -lt 1; $i++) {
        ResourceGroupName = $ResourceGroupName;
        Location = $Location;
        StorageAccountName = $StorageAccountName;
-       VnetName = $VnetName;
+       VnetName = $VnetName;  
        SubnetIndex = $SubNetIndex;
-       VmName = "ub-ansible-$i";
-       NicName = "ub-ansible-nic-$i"
+       VmName = "ub-slave-$i";
+       NicName = "ub-slave-nic-$i"
        VmSize = "Standard_D1_v2"
        };
 
    .  .\..\base\build-ub.ps1 @VirtualMachine;
-
 }
+
 
 
 #Apply DSC Extension
@@ -65,8 +55,8 @@ $DSC = @{
     Location = $Location
     StorageAccountName = $StorageAccountName
     ContainerName = "mof"
-    MOFfile = "ansible-master.mof"
-    VmName = "ub-ansible-0"
+    MOFfile = "ansible-slave.mof"
+    VmName = "ub-slave-0"
     Platform = "Linux"
  };
   .  .\..\util\install-mof.ps1 @DSC
