@@ -1,1 +1,2 @@
+azure==2.0.0rc5
 pywinrm>=0.1.1

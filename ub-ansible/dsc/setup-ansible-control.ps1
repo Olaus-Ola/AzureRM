@@ -28,7 +28,14 @@ Configuration AnsibleControl
             Name            = "git"
             PackageManager  = "apt"			
         }
-		nxScript Get_ansible_playbook
+		
+        nxFile requirements
+        {
+            SourcePath = "https://raw.githubusercontent.com/stuartshay/AzureRM/master/ub-ansible/config/requirements.txt"
+            DestinationPath = '/tmp'
+        } 
+
+        nxScript Get_ansible_playbook
         {
             DependsOn = '[nxPackage]git'
             
@@ -77,7 +84,7 @@ exit 1
             SetScript = @'
 #!/bin/bash
 pip install --upgrade pip
-sudo pip install "azure==2.0.0rc5"
+sudo pip install -r /tmp/requirements.txt
 '@
         } 
     }
