@@ -1,13 +1,10 @@
-#Login-AzureRMAccount
-Set-Location C:\Users\Pari\Desktop\harpreet\Auto-deploy-docker-azure\ub-node
 
+$ResourceGroupName = 'AzureRM'
+$Location = 'East US 2'
+$VnetName = "AzureRmVNet"
+$SubNetIndex = 2
 
-$ResourceGroupName = "ansible-resource"
-$Location = "Canada Central"
-$VnetName = "Ansible-network"
-$SubNetIndex = 0
-
-$StorageAccountName = "ansiblestorage635"
+$StorageAccountName = "azurestoragez1"
 
 #Extract-Base Image
 $BI = @{
@@ -15,9 +12,10 @@ $BI = @{
    ResourceGroupName = $ResourceGroupName;
    StorageAccountName = $StorageAccountName;
    ContainerName = "vm-images"
-   VmName = "u-ansible-0"
-   NicName ="u-ansible-nic-0"
-   VhdNamePrefix = "u-ansible-2016-09-13"
+   VmName = "ub-slave-0"
+   NicName ="ub-slave-nic-0"
+   VhdNamePrefix = "ub-ansible-2016-09-13"
 
 };
- .\extract-ub.ps1 @BI
+. ..\util\extract-base.ps1 @BI
+
