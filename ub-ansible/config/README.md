@@ -1,7 +1,7 @@
 ## Ansible Config
 
 ### requirements.txt 
-Python Package List Contains Required Modules 
+Python Package List Contains Required Packages
 
 ````
 pip freeze
