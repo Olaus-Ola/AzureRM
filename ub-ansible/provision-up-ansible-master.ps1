@@ -27,21 +27,9 @@ $UploadMof = @{
 . ..\util\upload-mof.ps1 @UploadMof 
 
 
-#Upload Scripts
-$UploadScripts = @{
-
-    ResourceGroupName = $ResourceGroupName;    
-    Location = $Location;
-    StorageAccountName = $StorageAccountName;
-    ContainerName = "ansible"
-      PathToContent =".\config\ansible" 
-};
-. ..\util\upload-scripts.ps1 @UploadScripts
-
-
 #Build VM
-$i = 0
-For ($i=0; $i -lt 1; $i++) {
+$i = 37
+For ($i=37; $i -lt 40; $i++) {
 
     $VirtualMachine = @{
        ResourceGroupName = $ResourceGroupName;
@@ -66,7 +54,7 @@ $DSC = @{
     StorageAccountName = $StorageAccountName
     ContainerName = "mof"
     MOFfile = "ansible-master.mof"
-    VmName = "ub-ansible-0"
+    VmName = "ub-ansible-37"
     Platform = "Linux"
  };
   .  .\..\util\install-mof.ps1 @DSC

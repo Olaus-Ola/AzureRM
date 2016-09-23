@@ -56,7 +56,7 @@ $ipName = "$VmName-IP"
 $pip = New-AzureRmPublicIpAddress -Name $ipName -ResourceGroupName $ResourceGroupName -Location $Location -AllocationMethod Dynamic 
 
 # Nic
-$nic = New-AzureRmNetworkInterface -ResourceGroupName $ResourceGroupName -Subnet $vnet.Subnets[$SubnetIndex] -Location $Location -PublicIpAddress $pip -Name $NicName
+$nic = New-AzureRmNetworkInterface -ResourceGroupName $ResourceGroupName -Subnet $vnet.Subnets[$SubnetIndex] -Location $Location -PublicIpAddress $pip -Name $NicName -Force
 
 # VM Disk
 $diskName = $VmName + "-os-disk"
@@ -76,9 +76,5 @@ Set-AzureRmVMSourceImage  -PublisherName $publisher -Offer $offer -Skus $sku -Ve
 Set-AzureRmVMOSDisk  -Name $diskName -VhdUri $osDiskUri -Caching ReadWrite -CreateOption fromImage |
 Add-AzureRmVMNetworkInterface  -Id $nic.Id;
 
-### VHD Images
-## Set-AzureRmVMOSDisk  -Name $diskName -VhdUri $osDiskUri -Caching ReadWrite -CreateOption fromImage -SourceImageUri $BaseImage -Linux |
-## Add-AzureRmVMNetworkInterface  -Id $nic.Id;} 
-
-
+ 
 New-AzureRmVM -ResourceGroupName $ResourceGroupName -Location $Location -VM $vm -Verbose 

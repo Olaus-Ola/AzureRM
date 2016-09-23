@@ -28,14 +28,16 @@ Configuration AnsibleControl
             Name            = "git"
             PackageManager  = "apt"			
         }
-		
+
         nxFile requirements
         {
             SourcePath = "https://raw.githubusercontent.com/stuartshay/AzureRM/master/ub-ansible/config/requirements.txt"
-            DestinationPath = '/tmp'
+            DestinationPath = "/tmp/requirements.txt"
+            Type = "file"
         } 
 
-        nxScript Get_ansible_playbook
+
+		nxScript Get_ansible_playbook
         {
             DependsOn = '[nxPackage]git'
             
