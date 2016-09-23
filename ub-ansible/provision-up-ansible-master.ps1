@@ -28,8 +28,8 @@ $UploadMof = @{
 
 
 #Build VM
-$i = 37
-For ($i=37; $i -lt 40; $i++) {
+$i = 0
+For ($i=0; $i -lt 1; $i++) {
 
     $VirtualMachine = @{
        ResourceGroupName = $ResourceGroupName;
@@ -54,7 +54,7 @@ $DSC = @{
     StorageAccountName = $StorageAccountName
     ContainerName = "mof"
     MOFfile = "ansible-master.mof"
-    VmName = "ub-ansible-37"
+    VmName = "ub-ansible-0"
     Platform = "Linux"
  };
   .  .\..\util\install-mof.ps1 @DSC
