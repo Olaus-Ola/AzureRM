@@ -1,4 +1,4 @@
 azure==2.0.0rc5
-pywinrm>=0.1.1
 MarkupSafe==0.23
 xmltodict==0.10.2
+pywinrm=0.2.1
