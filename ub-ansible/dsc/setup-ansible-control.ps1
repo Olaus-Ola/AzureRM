@@ -53,6 +53,7 @@ exit 1
 
             SetScript = @'
 #!/bin/bash
+sudo apt-get update
 cd /etc/ansible/
 git clone https://github.com/stuartshay/AnsiblePlaybooks.git
 '@
@@ -61,13 +62,14 @@ git clone https://github.com/stuartshay/AnsiblePlaybooks.git
         {  
             Ensure          = "Present"
             Name            = "libssl-dev"
-            PackageManager  = "apt"			
+            PackageManager  = "apt"	
+		    DependsOn       = "[nxPackage]git"	
         }
 	    nxPackage pip  
         {  
             Ensure          = "Present"
             Name            = "python-pip"
-            PackageManager  = "apt"			
+            PackageManager  = "apt"		
         }
 		nxScript azure_python_sdk
         {
