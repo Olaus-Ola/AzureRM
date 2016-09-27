@@ -28,6 +28,15 @@ Configuration AnsibleControl
             Name            = "git"
             PackageManager  = "apt"			
         }
+
+        nxFile requirements
+        {
+            SourcePath = "https://raw.githubusercontent.com/stuartshay/AzureRM/master/ub-ansible/config/requirements.txt"
+            DestinationPath = "/tmp/requirements.txt"
+            Type = "file"
+        } 
+
+
 		nxScript Get_ansible_playbook
         {
             DependsOn = '[nxPackage]git'
@@ -44,6 +53,7 @@ exit 1
 
             SetScript = @'
 #!/bin/bash
+sudo apt-get update
 cd /etc/ansible/
 git clone https://github.com/stuartshay/AnsiblePlaybooks.git
 '@
@@ -52,13 +62,14 @@ git clone https://github.com/stuartshay/AnsiblePlaybooks.git
         {  
             Ensure          = "Present"
             Name            = "libssl-dev"
-            PackageManager  = "apt"			
+            PackageManager  = "apt"	
+		    DependsOn       = "[nxPackage]git"	
         }
 	    nxPackage pip  
         {  
             Ensure          = "Present"
             Name            = "python-pip"
-            PackageManager  = "apt"			
+            PackageManager  = "apt"		
         }
 		nxScript azure_python_sdk
         {
@@ -77,7 +88,7 @@ exit 1
             SetScript = @'
 #!/bin/bash
 pip install --upgrade pip
-sudo pip install "azure==2.0.0rc5"
+sudo pip install -r /tmp/requirements.txt
 '@
         } 
     }
