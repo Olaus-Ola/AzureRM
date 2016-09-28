@@ -22,5 +22,5 @@ Remove the vm and extracting base image
 ````
 ### Verify
 ````
-dpkg --get-selections | grep ssh
+apt list --installed | grep ssh
 ````
