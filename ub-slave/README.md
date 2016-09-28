@@ -20,3 +20,7 @@ Remove the vm and extracting base image
 ````
 ./extract-base-image-slave.ps1
 ````
+### Verify
+````
+dpkg --get-selections | grep ssh
+````
