@@ -15,7 +15,7 @@ $BI = @{
    ContainerName = "vm-images"
    VmName = "ub-ansible-0"
    NicName ="ub-ansible-nic-0"
-   VhdNamePrefix = "ub-ansible-control-2016-09-27"
+   VhdNamePrefix = "ub-ansible-2016-09-28"
 
 };
 . ..\util\extract-base.ps1 @BI

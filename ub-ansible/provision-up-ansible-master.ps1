@@ -29,7 +29,7 @@ $UploadMof = @{
 
 #Build VM
 $i = 0
-For ($i=0; $i -lt 3; $i++) {
+For ($i=0; $i -lt 1; $i++) {
 
     $VirtualMachine = @{
        ResourceGroupName = $ResourceGroupName;
@@ -43,7 +43,6 @@ For ($i=0; $i -lt 3; $i++) {
        };
 
    .  .\..\base\build-ub.ps1 @VirtualMachine;
-
 }
 
 
