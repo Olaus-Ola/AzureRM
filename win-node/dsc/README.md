@@ -1,4 +1,13 @@
 
+###setup-ansible-win-slave.ps1
+
+Base Image for Ansible Windows Connectivity - WinRM   
+Note: Fix PS Script Execution
+
+````
+setup-ansible-win-slave.ps1\payload
+Latest 2.20
+````
 
 ### setup-iis-web.ps1
 
