@@ -9,8 +9,16 @@ Get-AzureRmVmImageOffer -Location $Location -PublisherName 'MicrosoftVisualStudi
 Get-AzureRmVmImageSku -Location $Location -PublisherName 'MicrosoftVisualStudio' -Offer "Windows" | Out-GridView
 Get-AzureRmVMImage -Location $Location -PublisherName "MicrosoftVisualStudio" -Offer "Windows" -Skus "10-Enterprise-N" | select version
 
+#Windows 2016-Technical-Preview-with-Containers
+Get-AzureRmVMImagePublisher -Location $Location | Select PublisherName | Out-GridView
+Get-AzureRmVmImageOffer -Location $Location -PublisherName 'MicrosoftWindowsServer' | Out-GridView
+Get-AzureRmVmImageSku -Location $Location -PublisherName 'MicrosoftWindowsServer' -Offer "WindowsServer" | Out-GridView
+Get-AzureRmVMImage -Location $Location -PublisherName "MicrosoftWindowsServer" -Offer "WindowsServer" -Skus "2016-Technical-Preview-with-Containers" | select version | Out-GridView 
+
+
+# Windows WorkStation
 $Publisher = (Get-AzureRmVMImagePublisher -Location $Location) | select -ExpandProperty PublisherName | where { $_ -like '*Microsoft*Windows*Server' }
-$Offer = (Get-AzureRmVMImageOffer -Location $Location -PublisherName $Publisher) | select -ExpandProperty Offer | where { $_ -like '*Windows*' } 
+$Offer = (Get-AzureRmVMImageOffer -Location $Location -PublisherName $Publisher) | select -ExpandProperty Offer | where { $_ -like '*Windows*' } | Out-GridView
 $Sku = (Get-AzureRmVMImageSku -Location $Location -PublisherName $Publisher -Offer $Offer) | select -ExpandProperty Skus | where { $_ -like '*2012-R2-Datacenter*' } 
 $Versions = (Get-AzureRmVMImage -Location $Location -Offer $Offer -PublisherName $Publisher -Skus $Sku) | select -ExpandProperty Version
 
