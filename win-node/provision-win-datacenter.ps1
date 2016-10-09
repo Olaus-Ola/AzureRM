@@ -30,7 +30,6 @@ $Tags = @{"environment" = "production"; "os" = "windows2016"; "group" = "server"
 Set-AzureRmResource -ResourceGroupName $ResourceGroupName -Name "win-container-0" -ResourceType "Microsoft.Compute/VirtualMachines" -Tag $Tags -Force
 
 
-
 #region Publish DSC Image 
 
 #Local File System
@@ -68,10 +67,9 @@ Set-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName -VMName win-cont
 
 #endregion
 
-
-
-
 <#
+
+NOTE: Manually Execute PS Script  
 
 Extract-Base Image & Generalize
 
