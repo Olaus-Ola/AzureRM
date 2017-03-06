@@ -1,12 +1,11 @@
 Login-AzureRMAccount
-Set-Location C:\Users\sshay\Documents\GitHub\AzureRM\win-node
 
-$ResourceGroupName = 'AzureRM'
+$ResourceGroupName = 'AzureRServer'
 $Location = 'East US 2'
-$VnetName = "AzureRmVNet"
+$VnetName = "RServerVNet"
 $SubNetIndex = 2
 
-$StorageAccountName = "azurestoragez1"
+$StorageAccountName = "azurersqlrserver"
 
 # Build Base Image 
 $i = 0
@@ -23,7 +22,7 @@ For ($i=0; $i -lt 1; $i++) {
        VmSize = "Standard_D2_v2";
        };
 
-    . .\..\base\build-win-server.ps1 @VirtualMachine;
+    .\..\base\build-win-server.ps1 @VirtualMachine;
 }
 
 
@@ -98,7 +97,7 @@ $BaseImage = @{
     ContainerName = "vm-images"
     VmName = "win-sql-0"
     NicName ="win-sql-nic-0"
-    VhdNamePrefix = "win-sql-2016-2016-09-17"
+    VhdNamePrefix = "win-sql2016-2017-03-05"
 
  };
 

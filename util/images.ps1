@@ -9,11 +9,13 @@ Get-AzureRmVmImageOffer -Location $Location -PublisherName 'MicrosoftVisualStudi
 Get-AzureRmVmImageSku -Location $Location -PublisherName 'MicrosoftVisualStudio' -Offer "Windows" | Out-GridView
 Get-AzureRmVMImage -Location $Location -PublisherName "MicrosoftVisualStudio" -Offer "Windows" -Skus "10-Enterprise-N" | select version
 
-#Windows 2016-Technical-Preview-with-Containers
+#Windows 2016-Datacenter-with-Containers
 Get-AzureRmVMImagePublisher -Location $Location | Select PublisherName | Out-GridView
 Get-AzureRmVmImageOffer -Location $Location -PublisherName 'MicrosoftWindowsServer' | Out-GridView
 Get-AzureRmVmImageSku -Location $Location -PublisherName 'MicrosoftWindowsServer' -Offer "WindowsServer" | Out-GridView
-Get-AzureRmVMImage -Location $Location -PublisherName "MicrosoftWindowsServer" -Offer "WindowsServer" -Skus "2016-Technical-Preview-with-Containers" | select version | Out-GridView 
+Get-AzureRmVMImage -Location $Location -PublisherName "MicrosoftWindowsServer" -Offer "WindowsServer" -Skus "2016-Datacenter-with-Containers" | select version | Out-GridView 
+
+
 
 
 # Windows WorkStation

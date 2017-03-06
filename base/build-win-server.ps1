@@ -65,8 +65,8 @@ $osDiskUri = $storageAccount.PrimaryEndpoints.Blob.ToString() + "vhds/" + $diskN
 # VM
 $publisher = "MicrosoftWindowsServer"
 $offer = "WindowsServer"
-$sku = "2012-R2-Datacenter"
-$version = "4.0.20160617"
+$sku = "2016-Datacenter-with-Containers"
+$version = "2016.0.20170127"
 
 $vm = New-AzureRmVMConfig -VMName $VmName -VMSize $VmSize |
 Set-AzureRmVMOperatingSystem  -Windows -ComputerName $VmName -Credential $cred  |

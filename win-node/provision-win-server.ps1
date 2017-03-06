@@ -1,13 +1,14 @@
 Login-AzureRMAccount
-Set-Location C:\Users\sshay\Documents\GitHub\AzureRM\win-node
+Get-AzureRmSubscription
+Set-AzureRmContext -SubscriptionName "Azure Free Trial"
 
 
-$ResourceGroupName = 'AzureRM'
+$ResourceGroupName = 'AzureMongo'
 $Location = 'East US 2'
-$VnetName = "AzureRmVNet"
+$VnetName = "MongoVNet"
 $SubNetIndex = 2
 
-$StorageAccountName = "azurestoragez1"
+$StorageAccountName = "azuremongostorage"
 
 
 #region Publish DSC Image 
@@ -38,7 +39,7 @@ For ($i=0; $i -lt 1; $i++) {
        VmSize = "Standard_D2_v2";
        };
 
-    . .\..\base\build-win-server.ps1 @VirtualMachine;
+    . .\..\base\build-win-datacenter.ps1 @VirtualMachine;
 }
 
 
@@ -84,7 +85,7 @@ $BaseImage = @{
     ContainerName = "vm-images"
     VmName = "win-server-0"
     NicName ="win-server-nic-0"
-    VhdNamePrefix = "win-server-coreweb-2016-08-30"
+    VhdNamePrefix = "win-server-coreweb-2017-01-05"
 
  };
 
