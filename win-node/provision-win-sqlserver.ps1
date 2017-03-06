@@ -97,7 +97,7 @@ $BaseImage = @{
     ContainerName = "vm-images"
     VmName = "win-sql-0"
     NicName ="win-sql-nic-0"
-    VhdNamePrefix = "win-sql2016-2017-03-05"
+    VhdNamePrefix = "win-sql2016-2017-03-06"
 
  };
 
